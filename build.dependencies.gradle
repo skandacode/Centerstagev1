@@ -3,6 +3,9 @@ repositories {
     google() // Needed for androidx
     maven { url 'https://jitpack.io' }
     maven { url = 'https://maven.brott.dev/' }
+    flatDir {
+        dirs rootProject.file('libs')
+    }
 }
 
 dependencies {
@@ -21,6 +24,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
 
     implementation 'com.github.StateFactory-Dev:StateFactory:v0.3'
-    implementation 'com.acmerobotics.dashboard:dashboard:0.4.13'
+    implementation 'com.acmerobotics.dashboard:dashboard:0.4.12'
 }
 
