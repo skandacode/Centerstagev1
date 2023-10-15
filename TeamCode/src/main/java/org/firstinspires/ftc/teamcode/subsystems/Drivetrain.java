@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
@@ -48,8 +48,8 @@ public class Drivetrain {
 
 
     MotorEx encoderLeft, encoderRight, encoderPerp;
-    IMU imu;
-    HolonomicOdometry localizer;
+    public IMU imu;
+    public HolonomicOdometry localizer;
 
     public void init(HardwareMap hardwareMap) {
         drive = new MecanumDrive(
@@ -134,5 +134,8 @@ public class Drivetrain {
         forward_controller.setSetPoint(x_set);
         strafe_controller.setSetPoint(-y_set);
         heading_controller.setSetPoint(h_set);
+    }
+    public void driveFieldCentric(double strafeSpeed, double forwardSpeed, double turn, double heading){
+        drive.driveFieldCentric(strafeSpeed, forwardSpeed, turn, heading);
     }
 }

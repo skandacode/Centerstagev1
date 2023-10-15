@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.subsystems.examples;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
@@ -23,7 +23,7 @@ import java.util.List;
 
 @Config
 @TeleOp
-public class PosePIDS extends LinearOpMode {
+public class PosePIDSExample extends LinearOpMode {
     MecanumDrive drive;
     public PIDFController forward_controller;
     public PIDFController strafe_controller;
