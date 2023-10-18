@@ -38,7 +38,8 @@ public class teleop extends LinearOpMode {
             if (gamepad1.b){lift.setTarget(100);}
             if (gamepad1.x){lift.setTarget(200);}
             if (gamepad1.y){lift.setTarget(400);}
-
+            intake.set(gamepad1.left_stick_x*0.45);
+            
             lift.update();
         }
     }
