@@ -1,10 +1,14 @@
+import android.graphics.Canvas;
+
+import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
+import org.firstinspires.ftc.vision.VisionProcessor;
 
-public class SimpleThresholdPipeline extends OpenCvPipeline {
+public class SimpleThresholdPipeline implements VisionProcessor {
 
     /*
      * These are our variables that will be
@@ -38,7 +42,7 @@ public class SimpleThresholdPipeline extends OpenCvPipeline {
     private Mat maskedInputMat = new Mat();
 
     @Override
-    public Mat processFrame(Mat input) {
+    public Object processFrame(Mat input, long captureTimeNanos) {
         /*
          * Converts our input mat from RGB to YCrCb.
          * EOCV ALWAYS returns RGB mats, so you'd
@@ -94,4 +98,14 @@ public class SimpleThresholdPipeline extends OpenCvPipeline {
         return maskedInputMat;
     }
 
+    @Override
+    public void init(int width, int height, CameraCalibration calibration) {
+
+    }
+
+
+    @Override
+    public void onDrawFrame(Canvas canvas, int onscreenWidth, int onscreenHeight, float scaleBmpPxToCanvasPx, float scaleCanvasDensity, Object userContext) {
+
+    }
 }
