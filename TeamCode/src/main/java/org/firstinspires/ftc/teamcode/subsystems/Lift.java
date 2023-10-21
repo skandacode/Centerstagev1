@@ -31,7 +31,7 @@ public class Lift {
     }
     public void update(){
         liftController.setPIDF(kP, 0, kD, 0);
-        double power = liftController.calculate(liftMotors.getCurrentPosition());
+        double power = liftController.calculate(lift1.getCurrentPosition());
         liftMotors.set(power+kF);
     }
     public void open(){
@@ -39,5 +39,8 @@ public class Lift {
     }
     public void close(){
         deposit.setPosition(1);
+    }
+    public void setPower(double power){
+        liftMotors.set(power);
     }
 }

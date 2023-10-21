@@ -79,11 +79,7 @@ public class Drivetrain {
                 TRACKWIDTH, CENTER_WHEEL_OFFSET
         );
 
-        List<LynxModule> allHubs = hardwareMap.getAll(LynxModule.class);
 
-        for (LynxModule hub : allHubs) {
-            hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
-        }
 
         imu = hardwareMap.get(IMU.class, "imu");
 
@@ -138,4 +134,8 @@ public class Drivetrain {
     public void driveFieldCentric(double strafeSpeed, double forwardSpeed, double turn, double heading){
         drive.driveFieldCentric(strafeSpeed, forwardSpeed, turn, heading);
     }
+    public void driveRobotCentric(double strafeSpeed, double forwardSpeed, double turn){
+        drive.driveRobotCentric(strafeSpeed, forwardSpeed, turn);
+    }
+
 }
