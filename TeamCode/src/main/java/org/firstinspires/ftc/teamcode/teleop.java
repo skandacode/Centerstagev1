@@ -37,20 +37,32 @@ public class teleop extends LinearOpMode {
 
 
         waitForStart();
-        while (opModeIsActive()){
+        while (opModeIsActive()) {
 
             hubs.forEach(LynxModule::clearBulkCache);
 
-            double heading=drivetrain.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+            double heading = drivetrain.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
 
-            drivetrain.driveFieldCentric(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, heading);
-            if (gamepad1.a){lift.setTarget(0);}
-            if (gamepad1.b){lift.setTarget(100);}
-            if (gamepad1.x){lift.setTarget(200);}
-            if (gamepad1.y){lift.setTarget(400);}
-            intake.set(gamepad1.left_stick_x*0.45);
-            outtake1.set(0.5*(gamepad1.left_trigger-gamepad1.right_trigger));
-            outtake2.set(0.5*(gamepad1.left_trigger-gamepad1.right_trigger));
+            drivetrain.driveRobotCentric(gamepad1.left_stick_x, gamepad1.left_stick_y, -gamepad1.right_stick_x);
+            if (gamepad1.a) {
+                lift.setTarget(0);
+            }
+            if (gamepad1.b) {
+                lift.setTarget(100);
+            }
+            if (gamepad1.x) {
+                lift.setTarget(200);
+            }
+            if (gamepad1.y) {
+                lift.setTarget(400);
+            }
+            if (gamepad1.left_bumper){
+                intake.set(0.45);
+            }else{
+                intake.set(0);
+            }
+            outtake1.set(0.5*(gamepad1.left_trigger-0.5*gamepad1.right_trigger));
+            outtake2.set(0.5*(gamepad1.left_trigger-0.5*gamepad1.right_trigger));
 
             if (gamepad1.right_bumper){
                 deposit.setPosition(0.5);
@@ -61,7 +73,7 @@ public class teleop extends LinearOpMode {
             }
 
 
-            lift.update();
+            //lift.update();
         }
     }
 }
