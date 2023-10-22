@@ -46,13 +46,13 @@ public class TeleopNOPID extends LinearOpMode {
             }else{
                 intake.set(0);
             }
-            lift.setPower(-0.5*(gamepad2.left_trigger-0.5*gamepad2.right_trigger));
+            lift.setPower(-0.25*gamepad2.left_trigger+0.5*gamepad2.right_trigger);
 
             if (gamepad2.right_bumper){
-                deposit.setPosition(0.5);
+                lift.open();
             }
             else{
-                deposit.setPosition(1);
+                lift.close();
             }
         }
     }
