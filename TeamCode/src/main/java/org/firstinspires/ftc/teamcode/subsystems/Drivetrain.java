@@ -42,9 +42,9 @@ public class Drivetrain {
     static double headingCoef = 1;
 
 
-    static double TRACKWIDTH = 9.351882525;
+    static double TRACKWIDTH = 12.46063;
     static double TICKS_TO_INCHES = 0.0005221053927409524;
-    static double CENTER_WHEEL_OFFSET = -5.944;
+    static double CENTER_WHEEL_OFFSET = -7.086614173228347;
 
 
     MotorEx encoderLeft, encoderRight, encoderPerp;
@@ -60,11 +60,11 @@ public class Drivetrain {
 
 
         encoderLeft = new MotorEx(hardwareMap, "backleft");
-        encoderRight = new MotorEx(hardwareMap, "backright");
+        encoderRight = new MotorEx(hardwareMap, "frontright");
         encoderPerp = new MotorEx(hardwareMap, "frontleft");
 
         encoderLeft.setDistancePerPulse(-TICKS_TO_INCHES);
-        encoderRight.setDistancePerPulse(-TICKS_TO_INCHES);
+        encoderRight.setDistancePerPulse(-TICKS_TO_INCHES);         //REVERSES ALL
         encoderPerp.setDistancePerPulse(-TICKS_TO_INCHES);
 
         encoderLeft.resetEncoder();
