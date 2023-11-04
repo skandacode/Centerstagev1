@@ -42,8 +42,8 @@ public class Drivetrain {
     static double headingCoef = 1;
 
 
-    static double TRACKWIDTH = 12.46063;
-    static double TICKS_TO_INCHES = 0.0005221053927409524;
+    static double TRACKWIDTH = -13.131608781378604;
+    static double TICKS_TO_INCHES = 0.0005354682622109949;
     static double CENTER_WHEEL_OFFSET = -7.086614173228347;
 
 
@@ -52,11 +52,17 @@ public class Drivetrain {
     public HolonomicOdometry localizer;
 
     public void init(HardwareMap hardwareMap) {
-        drive = new MecanumDrive(
-                new Motor(hardwareMap, "frontleft"),
-                new Motor(hardwareMap, "frontright"),
-                new Motor(hardwareMap, "backleft"),
-                new Motor(hardwareMap, "backright"));
+        Motor frontleft=new Motor(hardwareMap, "frontleft");
+        Motor frontright=new Motor(hardwareMap, "frontright");
+        Motor backleft=new Motor(hardwareMap, "backleft");
+        Motor backright=new Motor(hardwareMap, "backright");
+
+        frontleft.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        frontright.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        backleft.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        backright.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+
+        drive = new MecanumDrive(frontleft,frontright,backleft,backright);
 
 
         encoderLeft = new MotorEx(hardwareMap, "backleft");

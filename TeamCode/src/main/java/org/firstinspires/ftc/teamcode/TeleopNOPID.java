@@ -38,11 +38,16 @@ public class TeleopNOPID extends LinearOpMode {
 
             double heading = drivetrain.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
 
-            drivetrain.driveRobotCentric(gamepad1.left_stick_x, gamepad1.left_stick_y, -gamepad1.right_stick_x);
+            if (gamepad1.right_bumper){
+                drivetrain.driveRobotCentric(gamepad1.left_stick_x/3.0, gamepad1.left_stick_y/3.0, -0.23*gamepad1.right_stick_x);
+            }
+            else{
+                drivetrain.driveRobotCentric(gamepad1.left_stick_x, gamepad1.left_stick_y, -0.7*gamepad1.right_stick_x);
+            }
             if (gamepad2.a){
-                intake.set(0.45);
+                intake.set(0.47);
             }else if (gamepad2.b) {
-                intake.set(-0.45);
+                intake.set(-0.47);
             }else{
                 intake.set(0);
             }

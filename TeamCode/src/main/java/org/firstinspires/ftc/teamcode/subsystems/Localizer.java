@@ -22,8 +22,8 @@ public class Localizer extends LinearOpMode {
     MecanumDrive drive;
 
 
-    public static double TRACKWIDTH = 9.172;
-    public static double TICKS_TO_INCHES = 0.000537549367;
+    public static double TRACKWIDTH = -9.172;
+    public static double TICKS_TO_INCHES = 0.0005354682622109949;
     public static double CENTER_WHEEL_OFFSET = -5.944;
 
     MotorEx encoderLeft, encoderRight, encoderPerp;
@@ -38,7 +38,7 @@ public class Localizer extends LinearOpMode {
 
 
         encoderLeft = new MotorEx(hardwareMap, "backleft");
-        encoderRight = new MotorEx(hardwareMap, "backright");
+        encoderRight = new MotorEx(hardwareMap, "frontright");
         encoderPerp = new MotorEx(hardwareMap, "frontleft");
 
         encoderLeft.setDistancePerPulse(-TICKS_TO_INCHES);

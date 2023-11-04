@@ -23,13 +23,7 @@ public class MoveToPOS extends LinearOpMode {
                 drive.setTargetPosition(-20, 10, 0);
             }
             if (gamepad1.b){
-                drive.setTargetPosition(-30, 40, 90);
-            }
-            if (gamepad1.a){
-                drive.setTargetPosition(-60, 10, 90);
-            }
-            if (gamepad1.x){
-                drive.setTargetPosition(-60, -80, 90);
+                drive.setTargetPosition(-30, 35, 90);
             }
             TelemetryPacket packet = new TelemetryPacket();
 
