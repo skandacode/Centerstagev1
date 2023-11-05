@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -19,6 +20,11 @@ public class TeleopNOPID extends LinearOpMode {
     Lift lift=new Lift();
     Motor intake;
     Servo deposit;
+    Servo hangservo;
+    Servo droneservo;
+    DcMotor hang;
+
+    public static double intakespeed=0.5;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -26,6 +32,10 @@ public class TeleopNOPID extends LinearOpMode {
         lift.init(hardwareMap);
         intake=new Motor(hardwareMap, "intake", Motor.GoBILDA.RPM_1620);
         deposit = hardwareMap.get(Servo.class, "deposit");
+        hangservo=hardwareMap.servo.get("hangservo");
+        droneservo=hardwareMap.servo.get("drone");
+        hang=hardwareMap.dcMotor.get("hang");
+
 
 
         List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
@@ -45,9 +55,9 @@ public class TeleopNOPID extends LinearOpMode {
                 drivetrain.driveRobotCentric(gamepad1.left_stick_x, gamepad1.left_stick_y, -0.7*gamepad1.right_stick_x);
             }
             if (gamepad2.a){
-                intake.set(0.47);
+                intake.set(intakespeed);
             }else if (gamepad2.b) {
-                intake.set(-0.47);
+                intake.set(-intakespeed);
             }else{
                 intake.set(0);
             }
@@ -59,6 +69,24 @@ public class TeleopNOPID extends LinearOpMode {
             else{
                 lift.close();
             }
+            if (gamepad1.dpad_down){
+                hangservo.setPosition(1);//down
+            }
+            if (gamepad1.dpad_right){
+                hangservo.setPosition(0);//up
+            }
+            if (gamepad1.dpad_up){
+                hangservo.setPosition(0.25);//locks before hang
+            }
+            if (gamepad1.dpad_left){
+                hangservo.setPosition(0.5);//drone
+            }
+            if (gamepad1.y){
+                droneservo.setPosition(0.6);//shoot drone
+            }else{
+                droneservo.setPosition(0);//keep drone
+            }
+            hang.setPower(gamepad1.right_trigger-gamepad1.left_trigger);//hang
         }
     }
 }
