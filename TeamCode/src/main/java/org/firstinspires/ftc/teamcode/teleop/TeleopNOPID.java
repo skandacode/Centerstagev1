@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.teleop;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
@@ -81,8 +81,8 @@ public class TeleopNOPID extends LinearOpMode {
             if (gamepad1.dpad_left){
                 hangservo.setPosition(0.5);//drone
             }
-            if (gamepad1.y){
-                droneservo.setPosition(0.6);//shoot drone
+            if (!gamepad1.y){
+                droneservo.setPosition(0.9);//shoot drone
             }else{
                 droneservo.setPosition(0);//keep drone
             }
