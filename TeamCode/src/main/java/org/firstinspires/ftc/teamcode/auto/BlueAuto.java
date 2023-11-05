@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.vision.BluePipeline;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -92,9 +93,14 @@ public class BlueAuto extends LinearOpMode {
 
 
         if (randomization==PropPosition.LEFT){
+
+            drive.setTargetPosition(-20, 9, 0);
             while (opModeIsActive()&&autotimer.milliseconds()<30000){
-                
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                drive.update(imuangle);
             }
+
+
         } else if (randomization==PropPosition.MIDDLE) {
             
         } else if (randomization==PropPosition.RIGHT) {
