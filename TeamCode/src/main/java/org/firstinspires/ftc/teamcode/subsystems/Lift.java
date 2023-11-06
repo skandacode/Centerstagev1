@@ -14,7 +14,9 @@ public class Lift {
     Motor lift2;
     Servo deposit;
 
-    public static double kP, kD, kF=0;
+    public static double kP=0.002;
+    public static double kD=0;
+    public static double kF=0.11;
     PIDFController liftController=new PIDFController(kP, 0, kD, 0);
 
     public void init(HardwareMap hardwareMap){

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -9,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.vision.BluePipeline;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -18,11 +20,12 @@ import org.openftc.easyopencv.OpenCvWebcam;
 import java.util.*;
 import java.lang.*;
 import java.io.*;
-@TeleOp
+@Autonomous
 public class BlueAuto extends LinearOpMode {
 
 
     Drivetrain drive=new Drivetrain();
+    Lift lift=new Lift();
     OpenCvWebcam webcam;
 
     public static String ObjectDirection;
@@ -59,6 +62,8 @@ public class BlueAuto extends LinearOpMode {
 
 
         drive.init(hardwareMap);
+        lift.init(hardwareMap);
+
         FtcDashboard dashboard= FtcDashboard.getInstance();
 
 
@@ -94,16 +99,90 @@ public class BlueAuto extends LinearOpMode {
 
         if (randomization==PropPosition.LEFT){
 
-            drive.setTargetPosition(-20, 9, 0);
-            while (opModeIsActive()&&autotimer.milliseconds()<30000){
+            drive.setTargetPosition(-25, 20, 0);
+            while (opModeIsActive()&&autotimer.milliseconds()<3000){
                 double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                drive.update(imuangle);
+            }
+            drive.setTargetPosition(-5, 20, 0);
+            while (opModeIsActive()&&autotimer.milliseconds()<6000){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                drive.update(imuangle);
+            }
+            drive.setTargetPosition(-20, 40, 90);
+            while (opModeIsActive()&&autotimer.milliseconds()<11000){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                drive.update(imuangle);
+            }
+            lift.setTarget(500);
+            while (opModeIsActive()&&autotimer.milliseconds()<15000){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                lift.update();
+                drive.update(imuangle);
+            }
+            while (opModeIsActive()&&autotimer.milliseconds()<16000){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                lift.update();
+                drive.update(imuangle);
+                lift.open();
+            }
+            while (opModeIsActive()&&autotimer.milliseconds()<18000) {
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                lift.update();
+                drive.update(imuangle);
+                lift.close();
+                lift.setTarget(10);
+            }
+            while (opModeIsActive()&&autotimer.milliseconds()<20500){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                lift.update();
                 drive.update(imuangle);
             }
 
 
-        } else if (randomization==PropPosition.MIDDLE) {
+        } else if (randomization==PropPosition.MIDDLE) { // --------------------------------------------------------------
+
+            drive.setTargetPosition(-27, 0, 10);
+            while (opModeIsActive()&&autotimer.milliseconds()<3000){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                drive.update(imuangle);
+            }
+            drive.setTargetPosition(-5, 20, 10);
+            while (opModeIsActive()&&autotimer.milliseconds()<6000){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                drive.update(imuangle);
+            }
+            drive.setTargetPosition(-24, 38, 100);
+            while (opModeIsActive()&&autotimer.milliseconds()<11000){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                drive.update(imuangle);
+            }
+            lift.setTarget(500);
+            while (opModeIsActive()&&autotimer.milliseconds()<15000){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                lift.update();
+                drive.update(imuangle);
+            }
+            while (opModeIsActive()&&autotimer.milliseconds()<16000){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                lift.update();
+                drive.update(imuangle);
+                lift.open();
+            }
+            while (opModeIsActive()&&autotimer.milliseconds()<18000) {
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                lift.update();
+                drive.update(imuangle);
+                lift.close();
+                lift.setTarget(10);
+            }
+            while (opModeIsActive()&&autotimer.milliseconds()<20500){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                lift.update();
+                drive.update(imuangle);
+            }
             
-        } else if (randomization==PropPosition.RIGHT) {
+        } else if (randomization==PropPosition.RIGHT) { // ------------------------------------------------------
             
         }else{//Not found
 

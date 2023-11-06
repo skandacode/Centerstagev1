@@ -34,14 +34,16 @@ public class TeleopPIDS extends LinearOpMode {
             double heading = drivetrain.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
 
             drivetrain.driveFieldCentric(gamepad1.left_stick_x, -gamepad1.left_stick_y, -gamepad1.right_stick_x, heading);
-            if (gamepad1.a){lift.setTarget(0);}
+            if (gamepad1.a){lift.setTarget(-100);}
             if (gamepad1.b){lift.setTarget(100);}
             if (gamepad1.x){lift.setTarget(200);}
-            if (gamepad1.y){lift.setTarget(400);}
+            if (gamepad1.y){lift.setTarget(1000);}
             if (gamepad1.right_bumper){lift.open();} else {lift.close();}
 
 
             lift.update();
+
+
         }
     }
 }
