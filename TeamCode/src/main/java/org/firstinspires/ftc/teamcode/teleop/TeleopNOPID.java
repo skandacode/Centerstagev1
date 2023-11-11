@@ -49,13 +49,13 @@ public class TeleopNOPID extends LinearOpMode {
             double heading = drivetrain.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
 
             if (gamepad1.right_bumper){
-                drivetrain.driveRobotCentric(gamepad1.left_stick_x/3.0, gamepad1.left_stick_y/3.0, -0.23*gamepad1.right_stick_x);
+                drivetrain.driveRobotCentric(gamepad2.left_stick_x/3.0, gamepad2.left_stick_y/3.0, -0.23*gamepad2.right_stick_x);
             }
             else{
-                drivetrain.driveRobotCentric(gamepad1.left_stick_x, gamepad1.left_stick_y, -0.7*gamepad1.right_stick_x);
+                drivetrain.driveRobotCentric(gamepad2.left_stick_x, gamepad2.left_stick_y, -0.7*gamepad2.right_stick_x);
             }
             if (gamepad2.a){
-                intake.set(intakespeed);
+                intake.set(0.4);
             }else if (gamepad2.b) {
                 intake.set(-intakespeed);
             }else{
@@ -69,19 +69,19 @@ public class TeleopNOPID extends LinearOpMode {
             else{
                 lift.close();
             }
-            if (gamepad1.dpad_down){
+            if (gamepad2.dpad_down){
                 hangservo.setPosition(1);//down
             }
-            if (gamepad1.dpad_right){
+            if (gamepad2.dpad_right){
                 hangservo.setPosition(0);//up
             }
-            if (gamepad1.dpad_up){
+            if (gamepad2.dpad_up){
                 hangservo.setPosition(0.25);//locks before hang
             }
-            if (gamepad1.dpad_left){
+            if (gamepad2.dpad_left){
                 hangservo.setPosition(0.5);//drone
             }
-            if (!gamepad1.y){
+            if (!gamepad2.y){
                 droneservo.setPosition(0.9);//shoot drone
             }else{
                 droneservo.setPosition(0);//keep drone
