@@ -50,7 +50,7 @@ public class TeleopPIDS extends LinearOpMode {
         }
 
         waitForStart();
-
+        double loopTime=0.0;
         lift.resetEncoder();
 
         while (opModeIsActive()) {
@@ -110,7 +110,13 @@ public class TeleopPIDS extends LinearOpMode {
                             (position.getRotation().getSin()*10)+ position.getY());
 
             dashboard.sendTelemetryPacket(packet);
+
+            double loop = System.nanoTime();
+            telemetry.addData("hz ", 1000000000 / (loop - loopTime));
+            loopTime = loop;
             telemetry.update();
+
+
         }
     }
 }
