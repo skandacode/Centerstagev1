@@ -27,7 +27,7 @@ public class TeleopPIDS extends LinearOpMode {
     Servo droneservo;
     DcMotor hang;
 
-    public static double intakespeed=0.8;
+    public static double intakespeed=0.55;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -45,7 +45,14 @@ public class TeleopPIDS extends LinearOpMode {
         hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL));
         FtcDashboard dashboard= FtcDashboard.getInstance();
 
+        while (opModeInInit()){
+            lift.setPower(-0.1);
+        }
+
         waitForStart();
+
+        lift.resetEncoder();
+
         while (opModeIsActive()) {
             hubs.forEach(LynxModule::clearBulkCache);
 
@@ -67,23 +74,31 @@ public class TeleopPIDS extends LinearOpMode {
 
             if (gamepad2.right_trigger>0.3){
                 lift.setTarget(1000);
+                lift.update();
+                telemetry.addLine("going up with pids");
             }else{
-                lift.setTarget(5);
+                if (lift.is_down()){
+                        lift.setPower(0);
+                        telemetry.addLine("all the way down");
+                }else{
+                        lift.setPower(-0.5);
+                        telemetry.addLine("going down");
+                }
             }
 
             if (gamepad2.right_bumper){lift.open();}else{lift.close();}
-            if (gamepad1.dpad_down){hangservo.setPosition(1);}//down
-            if (gamepad1.dpad_right){hangservo.setPosition(0);}//up
-            if (gamepad1.dpad_up){hangservo.setPosition(0.25);}//locks before hang
-            if (gamepad1.dpad_left){hangservo.setPosition(0.5);}//drone
-            if (!gamepad1.y){
+            if (gamepad2.dpad_down){hangservo.setPosition(1);}//down
+            if (gamepad2.dpad_right){hangservo.setPosition(0);}//up
+            if (gamepad2.dpad_up){hangservo.setPosition(0.25);}//locks before hang
+            if (gamepad2.dpad_left){hangservo.setPosition(0.5);}//drone
+            if (!gamepad2.y){
                 droneservo.setPosition(0.9);//shoot drone
             }else{
                 droneservo.setPosition(0);//keep drone
             }
             hang.setPower(gamepad1.right_trigger-gamepad1.left_trigger);//hang
 
-            lift.update();
+
             drivetrain.localizer.updatePose();
 
             TelemetryPacket packet = new TelemetryPacket();
@@ -95,7 +110,7 @@ public class TeleopPIDS extends LinearOpMode {
                             (position.getRotation().getSin()*10)+ position.getY());
 
             dashboard.sendTelemetryPacket(packet);
-
+            telemetry.update();
         }
     }
 }

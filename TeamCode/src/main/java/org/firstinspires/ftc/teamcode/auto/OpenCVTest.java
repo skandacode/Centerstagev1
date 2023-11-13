@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.auto;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -13,7 +14,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 import java.util.*;
 import java.lang.*;
-
+@Disabled
 @TeleOp
 public class OpenCVTest extends LinearOpMode
 {
