@@ -36,7 +36,7 @@ public class RedPipeline extends OpenCvPipeline
     {
         Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV); //Uses HSV Colors
 
-        Scalar lowHSVRed = new Scalar(0,140,111); // lower bound HSV for red 0 100 20
+        Scalar lowHSVRed = new Scalar(0,100,20); // lower bound HSV for red 0 100 20
         Scalar highHSVRed = new Scalar(15, 255, 255); // higher bound HSV for red 10 255 255
 
 //        Scalar lowHSVBlue = new Scalar(85, 123, 0); // lower bound HSV for blue 110 100 20
