@@ -56,7 +56,7 @@ public class TeleopPIDS extends LinearOpMode {
         while (opModeIsActive()) {
             hubs.forEach(LynxModule::clearBulkCache);
 
-            double heading = drivetrain.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+            //double heading = drivetrain.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
 
             if (gamepad1.right_bumper){
                 drivetrain.driveRobotCentric(-gamepad1.left_stick_x/5.0, gamepad1.left_stick_y/5.0, -0.15*gamepad1.right_stick_x);
