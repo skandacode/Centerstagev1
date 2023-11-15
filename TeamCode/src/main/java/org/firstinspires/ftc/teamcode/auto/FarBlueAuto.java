@@ -111,41 +111,93 @@ public class FarBlueAuto extends LinearOpMode {
                 drive.update(imuangle);
             }
             drive.setTargetPosition(-26, -10, 90);
-            while (opModeIsActive()&&autotimer.milliseconds()<4000){
+            while (opModeIsActive()&&autotimer.milliseconds()<6000){
                 double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
                 drive.update(imuangle);
             }
             intake.set(-0.5);
             drive.setTargetPosition(-28, -24, 90);
-            while (opModeIsActive()&&autotimer.milliseconds()<6000){
+            while (opModeIsActive()&&autotimer.milliseconds()<8000){
                 double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
                 drive.update(imuangle);
             }
             intake.set(0.55);
             drive.setTargetPosition(-28, -20, 90);
-            while (opModeIsActive()&&autotimer.milliseconds()<7000){
+            while (opModeIsActive()&&autotimer.milliseconds()<9000){
                 double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
                 drive.update(imuangle);
             }
-            drive.setTargetPosition(-28, -24, 90);
-            while (opModeIsActive()&&autotimer.milliseconds()<7500){
+            drive.setTargetPosition(-28, -26, 90);
+            while (opModeIsActive()&&autotimer.milliseconds()<9500){
                 double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
                 drive.update(imuangle);
             }
             drive.setTargetPosition(-28, -20, 90);
-            while (opModeIsActive()&&autotimer.milliseconds()<8000){
+            while (opModeIsActive()&&autotimer.milliseconds()<10000){
                 double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
                 drive.update(imuangle);
             }
-            drive.setTargetPosition(-28, -24, 90);
-            while (opModeIsActive()&&autotimer.milliseconds()<8500){
+            drive.setTargetPosition(-28, -26, 90);
+            while (opModeIsActive()&&autotimer.milliseconds()<10500){
                 double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
                 drive.update(imuangle);
             }
             intake.set(-0.5);
-            drive.setTargetPosition(-15, -10, 90);
-            while (opModeIsActive()&&autotimer.milliseconds()<9000){
+            drive.setTargetPosition(-28, -10, 90);
+            while (opModeIsActive()&&autotimer.milliseconds()<11000){
                 double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                drive.update(imuangle);
+            }
+            intake.set(0);
+            drive.setTargetPosition(-60, -10, 90);
+            while (opModeIsActive()&&autotimer.milliseconds()<13000){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                drive.update(imuangle);
+            }
+            intake.set(0.55);
+            drive.setTargetPosition(-50, 70, 100);
+            while (opModeIsActive()&&autotimer.milliseconds()<17000){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                drive.update(imuangle);
+            }
+            intake.set(0);
+            drive.setTargetPosition(-10, 83, 100);
+            while (opModeIsActive()&&autotimer.milliseconds()<20000){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                drive.update(imuangle);
+            }
+            drive.setTargetPosition(0, 85, 100);
+            while (opModeIsActive()&&autotimer.milliseconds()<22000){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                drive.update(imuangle);
+            }
+            lift.setTarget(500);
+            while (opModeIsActive()&&autotimer.milliseconds()<24000){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                lift.update();
+                drive.update(imuangle);
+            }
+            while (opModeIsActive()&&autotimer.milliseconds()<25000){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                lift.update();
+                drive.update(imuangle);
+                lift.open();
+            }
+            while (opModeIsActive()&&autotimer.milliseconds()<26000) {
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                lift.update();
+                drive.update(imuangle);
+                lift.close();
+            }
+            while (opModeIsActive()&&autotimer.milliseconds()<27000) {
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                lift.update();
+                drive.update(imuangle);
+                lift.setTarget(-5);
+            }
+            while (opModeIsActive()&&autotimer.milliseconds()<28000){
+                double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                lift.update();
                 drive.update(imuangle);
             }
             /*
