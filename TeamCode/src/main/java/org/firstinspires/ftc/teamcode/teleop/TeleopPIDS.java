@@ -58,8 +58,8 @@ public class TeleopPIDS extends LinearOpMode {
 
             //double heading = drivetrain.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
 
-            if (gamepad1.right_bumper){
-                drivetrain.driveRobotCentric(-gamepad1.left_stick_x/5.0, gamepad1.left_stick_y/5.0, -0.15*gamepad1.right_stick_x);
+            if (gamepad1.right_bumper || gamepad2.a || gamepad2.right_trigger>0.5){
+                drivetrain.driveRobotCentric(-gamepad1.left_stick_x/3.0, gamepad1.left_stick_y/3.0, -0.3*gamepad1.right_stick_x);
             }
             else{
                 drivetrain.driveRobotCentric(-gamepad1.left_stick_x, gamepad1.left_stick_y, -0.5*gamepad1.right_stick_x);
@@ -72,8 +72,12 @@ public class TeleopPIDS extends LinearOpMode {
                 intake.set(0);
             }
 
-            if (gamepad2.right_trigger>0.3){
+            if (gamepad2.right_trigger>0.3) {
                 lift.setTarget(1000);
+                lift.update();
+                telemetry.addLine("going up with pids");
+            }else if (gamepad2.x){
+                lift.setTarget(650);
                 lift.update();
                 telemetry.addLine("going up with pids");
             }else{
@@ -81,7 +85,7 @@ public class TeleopPIDS extends LinearOpMode {
                         lift.setPower(0);
                         telemetry.addLine("all the way down");
                 }else{
-                        lift.setPower(-0.5);
+                        lift.setPower(-1);
                         telemetry.addLine("going down");
                 }
             }

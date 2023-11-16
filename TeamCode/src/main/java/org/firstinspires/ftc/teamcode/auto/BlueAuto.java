@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -66,6 +67,8 @@ public class BlueAuto extends LinearOpMode {
 
         FtcDashboard dashboard= FtcDashboard.getInstance();
 
+        List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
+        hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO));
 
         while (opModeInInit()){
             telemetry.addData("Frame Count", webcam.getFrameCount());
@@ -92,7 +95,7 @@ public class BlueAuto extends LinearOpMode {
 
             sleep(100);
         }
-        
+
         waitForStart();
         ElapsedTime autotimer=new ElapsedTime();
 

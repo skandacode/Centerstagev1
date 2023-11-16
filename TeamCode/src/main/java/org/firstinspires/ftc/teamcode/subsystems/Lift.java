@@ -22,7 +22,7 @@ public class Lift {
     public static double kD=0;
     public static double kF=0.11;
 
-    public static double down_cutoff=10;
+    public static double down_cutoff=8;
     PIDFController liftController=new PIDFController(kP, 0, kD, 0);
 
     public void init(HardwareMap hardwareMap){

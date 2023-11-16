@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.auto;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -66,7 +67,8 @@ public class RedAuto extends LinearOpMode {
         lift.init(hardwareMap);
         intake=new Motor(hardwareMap, "intake", Motor.GoBILDA.RPM_1620);
         FtcDashboard dashboard= FtcDashboard.getInstance();
-
+        List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
+        hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO));
         while (opModeInInit()){
             telemetry.addData("Frame Count", webcam.getFrameCount());
             telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
