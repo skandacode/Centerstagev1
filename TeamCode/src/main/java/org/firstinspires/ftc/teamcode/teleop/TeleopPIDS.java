@@ -27,7 +27,7 @@ public class TeleopPIDS extends LinearOpMode {
     Servo droneservo;
     DcMotor hang;
 
-    public static double intakespeed=0.55;
+    public static double intakespeed=0.4;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -77,7 +77,7 @@ public class TeleopPIDS extends LinearOpMode {
                 lift.update();
                 telemetry.addLine("going up with pids");
             }else if (gamepad2.x){
-                lift.setTarget(650);
+                lift.setTarget(570);
                 lift.update();
                 telemetry.addLine("going up with pids");
             }else{
@@ -85,12 +85,16 @@ public class TeleopPIDS extends LinearOpMode {
                         lift.setPower(0);
                         telemetry.addLine("all the way down");
                 }else{
-                        lift.setPower(-1);
+                        lift.setPower(-0.6);
                         telemetry.addLine("going down");
                 }
             }
 
-            if (gamepad2.right_bumper){lift.open();}else{lift.close();}
+            if (gamepad2.right_bumper && (gamepad2.right_trigger>0.3|| gamepad2.x)){
+                lift.open();
+            }else{
+                lift.close();
+            }
             if (gamepad2.dpad_down){hangservo.setPosition(1);}//down
             if (gamepad2.dpad_right){hangservo.setPosition(0);}//up
             if (gamepad2.dpad_up){hangservo.setPosition(0.25);}//locks before hang

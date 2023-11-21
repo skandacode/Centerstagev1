@@ -19,7 +19,7 @@ public class servotest extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        hangservo=hardwareMap.servo.get("hangservo");
+        hangservo=hardwareMap.servo.get("deposit");
         droneservo=hardwareMap.servo.get("drone");
         hang=hardwareMap.dcMotor.get("hang");
 

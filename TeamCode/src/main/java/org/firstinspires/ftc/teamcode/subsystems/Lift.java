@@ -45,10 +45,10 @@ public class Lift {
         liftMotors.set(power+kF);
     }
     public void open(){
-        deposit.setPosition(0.5);
+        deposit.setPosition(0.55);
     }
     public void close(){
-        deposit.setPosition(1);
+        deposit.setPosition(0.93);
     }
     public void setPower(double power){
         liftMotors.set(power);
