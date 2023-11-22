@@ -50,6 +50,9 @@ public class Lift {
     public void close(){
         deposit.setPosition(0.93);
     }
+    public void half_open(){
+        deposit.setPosition(0.65);
+    }
     public void setPower(double power){
         liftMotors.set(power);
     }

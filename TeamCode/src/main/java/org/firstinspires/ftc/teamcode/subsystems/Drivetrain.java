@@ -62,6 +62,23 @@ public class Drivetrain {
         backleft.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         backright.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
+        frontleft.setRunMode(Motor.RunMode.VelocityControl);
+        frontright.setRunMode(Motor.RunMode.VelocityControl);
+        backleft.setRunMode(Motor.RunMode.VelocityControl);
+        backright.setRunMode(Motor.RunMode.VelocityControl);
+
+
+        frontleft.setVeloCoefficients(0, 0, 0);
+        frontright.setVeloCoefficients(0, 0, 0);
+        backleft.setVeloCoefficients(0, 0, 0);
+        backright.setVeloCoefficients(0, 0, 0);
+
+        frontleft.setFeedforwardCoefficients(0.5, 1);
+        frontright.setFeedforwardCoefficients(0.5, 1);
+        backleft.setFeedforwardCoefficients(0.5, 1);
+        backright.setFeedforwardCoefficients(0.5, 1);
+
+
         drive = new MecanumDrive(frontleft,frontright,backleft,backright);
 
 
