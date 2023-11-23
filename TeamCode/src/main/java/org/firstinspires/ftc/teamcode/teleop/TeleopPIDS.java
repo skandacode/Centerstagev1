@@ -10,11 +10,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
+import java.lang.annotation.ElementType;
 import java.util.List;
 @TeleOp
 @Config
@@ -26,7 +28,6 @@ public class TeleopPIDS extends LinearOpMode {
     Servo hangservo;
     Servo droneservo;
     DcMotor hang;
-
     public static double intakespeed=0.4;
 
     @Override
@@ -48,10 +49,12 @@ public class TeleopPIDS extends LinearOpMode {
         while (opModeInInit()){
             lift.setPower(-0.1);
         }
-
+        lift.resetEncoder();
         waitForStart();
         double loopTime=0.0;
         lift.resetEncoder();
+        ElapsedTime timer=new ElapsedTime();
+        boolean prev_open=false;
 
         while (opModeIsActive()) {
             hubs.forEach(LynxModule::clearBulkCache);
@@ -82,19 +85,28 @@ public class TeleopPIDS extends LinearOpMode {
                 telemetry.addLine("going up with pids");
             }else{
                 if (lift.is_down()){
-                        lift.setPower(0);
-                        telemetry.addLine("all the way down");
+                    lift.setPower(0);
+                    telemetry.addLine("all the way down");
                 }else{
-                        lift.setPower(-0.6);
-                        telemetry.addLine("going down");
+                    lift.setPower(-0.6);
+                    telemetry.addLine("going down");
                 }
             }
-
-            if (gamepad2.right_bumper && (gamepad2.right_trigger>0.3|| gamepad2.x)){
-                lift.open();
+            boolean current_open=gamepad2.right_bumper && (gamepad2.right_trigger>0.3|| gamepad2.x);
+            if (current_open){
+                if (!prev_open) {//first time it is opened
+                    timer.reset();
+                    lift.half_open();
+                }else if (timer.milliseconds()<500){
+                    lift.half_open();
+                }else{
+                    lift.open();
+                }
             }else{
                 lift.close();
             }
+            prev_open=current_open;
+
             if (gamepad2.dpad_down){hangservo.setPosition(1);}//down
             if (gamepad2.dpad_right){hangservo.setPosition(0);}//up
             if (gamepad2.dpad_up){hangservo.setPosition(0.25);}//locks before hang
@@ -120,6 +132,7 @@ public class TeleopPIDS extends LinearOpMode {
             dashboard.sendTelemetryPacket(packet);
 
             double loop = System.nanoTime();
+            telemetry.addData("Lift sensor", lift.getDistance());
             telemetry.addData("hz ", 1000000000 / (loop - loopTime));
             loopTime = loop;
             telemetry.update();
