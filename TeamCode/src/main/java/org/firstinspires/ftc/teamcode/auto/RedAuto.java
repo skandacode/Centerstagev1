@@ -109,7 +109,7 @@ public class RedAuto extends LinearOpMode {
                 double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
                 drive.update(imuangle);
             }
-            
+
             //drive.setTargetPosition(-5, 20, 0);
             //while (opModeIsActive()&&autotimer.milliseconds()<9000){
             //double imuangle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
