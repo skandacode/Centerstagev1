@@ -2,11 +2,13 @@ package org.firstinspires.ftc.teamcode.subsystems.examples;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 @TeleOp
+@Disabled
 public class liftendtuner extends LinearOpMode {
     Lift lift=new Lift();
 

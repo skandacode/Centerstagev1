@@ -19,7 +19,7 @@ import java.util.List;
 
 @Config
 @TeleOp
-
+@Disabled
 public class Localizer extends LinearOpMode {
     MecanumDrive drive;
 
