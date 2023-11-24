@@ -18,7 +18,7 @@ public class Lift {
     Servo deposit;
     RevColorSensorV3 liftend;
 
-    public static double kP=0.002;
+    public static double kP=0.0025;
     public static double kD=0;
     public static double kF=0.11;
 
@@ -69,5 +69,8 @@ public class Lift {
     }
     public boolean is_down(){
         return this.getDistance() < down_cutoff;
+    }
+    public double getSetPoint(){
+        return liftController.getSetPoint();
     }
 }

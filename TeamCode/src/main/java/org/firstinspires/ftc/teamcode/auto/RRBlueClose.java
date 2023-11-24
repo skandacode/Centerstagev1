@@ -64,13 +64,13 @@ public class RRBlueClose extends LinearOpMode {
         TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
                 .lineTo(new Vector2d(22, 40))
                 .lineTo(new Vector2d(24, 54))
-                .lineToLinearHeading(new Pose2d(50, 45, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(51, 45, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
                 .lineTo(new Vector2d(10, 35))
                 .lineTo(new Vector2d(20.70, 48.03))
-                .lineToLinearHeading(new Pose2d(45, 36, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(51, 36, Math.toRadians(0)))
                 //.splineTo(new Vector2d(55.16, 35.67), Math.toRadians(0.00))
                 .build();
 
@@ -78,19 +78,19 @@ public class RRBlueClose extends LinearOpMode {
                 .splineTo(new Vector2d(6, 37), Math.toRadians(194.93))
                 .lineToLinearHeading(new Pose2d(31.45, 35.05, Math.toRadians(180.00)))
                 .lineToLinearHeading(new Pose2d(30.75, 35.10, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(49, 29, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(51, 29, Math.toRadians(0)))
 
                 .build();
-        TrajectorySequence leftbluepark = drive.trajectorySequenceBuilder(leftpath.start())
+        TrajectorySequence leftbluepark = drive.trajectorySequenceBuilder(leftpath.end())
                 .lineToLinearHeading(new Pose2d(45.62, 59.11, Math.toRadians(0.00)))
                 .lineTo(new Vector2d(62.27, 60.88))
                 .build();
-        TrajectorySequence middlebluepark = drive.trajectorySequenceBuilder(middlepath.start())
+        TrajectorySequence middlebluepark = drive.trajectorySequenceBuilder(middlepath.end())
                 .lineToLinearHeading(new Pose2d(45.62, 59.11, Math.toRadians(0.00)))
                 .lineTo(new Vector2d(62.27, 60.88))
                 .build();
-        TrajectorySequence rightbluepark = drive.trajectorySequenceBuilder(rightpath.start())
-                .lineToLinearHeading(new Pose2d(45.62, 59.11, Math.toRadians(0.00)))
+        TrajectorySequence rightbluepark = drive.trajectorySequenceBuilder(rightpath.end())
+                .lineToLinearHeading(new Pose2d(45.62, 62, Math.toRadians(0.00)))
                 .lineTo(new Vector2d(62.27, 60.88))
                 .build();
 
@@ -103,68 +103,73 @@ public class RRBlueClose extends LinearOpMode {
                 .onEnter(() -> drive.followTrajectorySequenceAsync(leftpath))
                 .transition(() -> !drive.isBusy())
                 .state(AutoStates.LIFT)
-                .onEnter(() -> lift.setTarget(700))
-                .transition(() -> lift.getEncoderPos()>600)
+                .onEnter(() -> lift.setTarget(450))
+                .transition(() -> lift.getEncoderPos()>400)
                 .state(AutoStates.HALFOPEN)
                 .onEnter(() -> lift.half_open())
-                .transitionTimed(1)
+                .transitionTimed(2)
                 .state(AutoStates.FULLYOPEN)
-                .onEnter(()->lift.open())
+                .onEnter(()->lift.close())
                 .transitionTimed(2)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
-                    lift.setPower(-0.6);
+                    lift.setTarget(-50);
                     lift.close();
                 }).transition(()->lift.is_down())
                 .state(AutoStates.PARK)
-                .onEnter(()->drive.followTrajectorySequenceAsync(leftbluepark))
-                .transition(()->!drive.isBusy()).build();
+                .onEnter(()->{
+                    drive.followTrajectorySequenceAsync(leftbluepark);
+                    lift.setTarget(0);
+                })
+                .build();
         StateMachine middlemachine = new StateMachineBuilder()
                 .state(AutoStates.TOBACKBOARD)
                 .onEnter(() -> drive.followTrajectorySequenceAsync(middlepath))
                 .transition(() -> !drive.isBusy())
                 .state(AutoStates.LIFT)
-                .onEnter(() -> lift.setTarget(700))
-                .transition(() -> lift.getEncoderPos()>600)
+                .onEnter(() -> lift.setTarget(450))
+                .transition(() -> lift.getEncoderPos()>400)
                 .state(AutoStates.HALFOPEN)
                 .onEnter(() -> lift.half_open())
-                .transitionTimed(1)
+                .transitionTimed(2)
                 .state(AutoStates.FULLYOPEN)
-                .onEnter(()->lift.open())
+                .onEnter(()->lift.close())
                 .transitionTimed(2)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
-                    lift.setPower(-0.6);
+                    lift.setTarget(-50);
                     lift.close();
                 }).transition(()->lift.is_down())
                 .state(AutoStates.PARK)
-                .onEnter(()->drive.followTrajectorySequenceAsync(middlebluepark))
-                .transition(()->!drive.isBusy()).build();
+                .onEnter(()->{
+                    drive.followTrajectorySequenceAsync(middlebluepark);
+                    lift.setTarget(0);
+                })
+                .build();
         StateMachine rightmachine = new StateMachineBuilder()
                 .state(AutoStates.TOBACKBOARD)
                 .onEnter(() -> drive.followTrajectorySequenceAsync(rightpath))
                 .transition(() -> !drive.isBusy())
                 .state(AutoStates.LIFT)
-                .onEnter(() -> lift.setTarget(700))
-                .transition(() -> lift.getEncoderPos()>600)
+                .onEnter(() -> lift.setTarget(450))
+                .transition(() -> lift.getEncoderPos()>400)
                 .state(AutoStates.HALFOPEN)
                 .onEnter(() -> lift.half_open())
-                .transitionTimed(1)
+                .transitionTimed(2)
                 .state(AutoStates.FULLYOPEN)
-                .onEnter(()->lift.open())
+                .onEnter(()->lift.close())
                 .transitionTimed(2)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
-                    lift.setTarget(0);
-                    lift.setPower(-0.6);
+                    lift.setTarget(-50);
                     lift.close();
                 }).transition(()->lift.is_down())
                 .state(AutoStates.PARK)
                 .onEnter(()->{
                     drive.followTrajectorySequenceAsync(rightbluepark);
-                    lift.setPower(0);
+                    lift.setTarget(0);
                 })
-                .transition(()->!drive.isBusy()).build();
+                .build();
 
 
         List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
@@ -197,32 +202,40 @@ public class RRBlueClose extends LinearOpMode {
             sleep(100);
         }
         waitForStart();
+
+        webcam.closeCameraDevice();
         if (randomization==PropPosition.LEFT){
             leftmachine.start();
             while (opModeIsActive()){
                 leftmachine.update();
-                if (lift.liftController.getSetPoint()>0){
-                    lift.update();
-                }
+                lift.update();
                 drive.update();
+                telemetry.addData("Height", lift.getEncoderPos());
+                telemetry.addData("Target", lift.getSetPoint());
+
+                telemetry.update();
             }
         }else if (randomization==PropPosition.MIDDLE){
             middlemachine.start();
             while (opModeIsActive()){
                 middlemachine.update();
-                if (lift.liftController.getSetPoint()>0){
-                    lift.update();
-                }
+                lift.update();
                 drive.update();
+                telemetry.addData("Height", lift.getEncoderPos());
+                telemetry.addData("Target", lift.getSetPoint());
+
+                telemetry.update();
             }
         }else if (randomization==PropPosition.RIGHT){
             rightmachine.start();
             while (opModeIsActive()){
                 rightmachine.update();
-                if (lift.liftController.getSetPoint()>0){
-                    lift.update();
-                }
+                lift.update();
                 drive.update();
+                telemetry.addData("Height", lift.getEncoderPos());
+                telemetry.addData("Target", lift.getSetPoint());
+
+                telemetry.update();
             }
         }
     }
