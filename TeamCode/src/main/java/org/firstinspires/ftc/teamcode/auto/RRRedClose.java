@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.vision.BluePipeline;
+import org.firstinspires.ftc.teamcode.vision.RedPipeline;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -22,7 +23,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 import java.util.List;
 import java.util.Objects;
 @Autonomous
-public class RRBlueClose extends LinearOpMode {
+public class RRRedClose extends LinearOpMode {
 
     Lift lift = new Lift();
     OpenCvWebcam webcam;
@@ -51,7 +52,7 @@ public class RRBlueClose extends LinearOpMode {
                 WebcamName.class, "Webcam 1"), cameraMonitorViewId
         );
 
-        BluePipeline pipeline = new BluePipeline(telemetry, ObjectDirection);
+        RedPipeline pipeline = new RedPipeline(telemetry, ObjectDirection);
         webcam.setPipeline(pipeline);
 
         webcam.setMillisecondsPermissionTimeout(5000); // Timeout for obtaining permission is configurable. Set before opening.
@@ -70,38 +71,38 @@ public class RRBlueClose extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
-                .lineTo(new Vector2d(22, 40))
-                .lineTo(new Vector2d(24, 54))
-                .lineToLinearHeading(new Pose2d(51, 45, Math.toRadians(0)))
+        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(10, -65.18, Math.toRadians(90)))
+                .lineTo(new Vector2d(22, -40))
+                .lineTo(new Vector2d(24, -54))
+                .lineToLinearHeading(new Pose2d(51, -45, Math.toRadians(0)))
                 .build();
 
-        TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
-                .lineTo(new Vector2d(10, 35))
-                .lineTo(new Vector2d(20.70, 48.03))
-                .lineToLinearHeading(new Pose2d(51, 36, Math.toRadians(0)))
+        TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(10, -65.18, Math.toRadians(90)))
+                .lineTo(new Vector2d(10, -35))
+                .lineTo(new Vector2d(20.70, -48.03))
+                .lineToLinearHeading(new Pose2d(51, -36, Math.toRadians(0)))
                 //.splineTo(new Vector2d(55.16, 35.67), Math.toRadians(0.00))
                 .build();
 
-        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
-                .splineTo(new Vector2d(6, 37), Math.toRadians(194.93))
-                .lineToLinearHeading(new Pose2d(31.45, 35.05, Math.toRadians(180.00)))
-                .lineToLinearHeading(new Pose2d(30.75, 35.10, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(51, 29, Math.toRadians(0)))
+        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(10, -65.18, Math.toRadians(90)))
+                .splineTo(new Vector2d(6, -37), Math.toRadians(360.0-194.93))
+                .lineToLinearHeading(new Pose2d(31.45, -35.05, Math.toRadians(180.00)))
+                .lineToLinearHeading(new Pose2d(30.75, -35.10, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(51, -29, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence leftpark = drive.trajectorySequenceBuilder(leftpath.end())
-                .lineToLinearHeading(new Pose2d(45.62, 59.11, Math.toRadians(0.00)))
-                .lineTo(new Vector2d(62.27, 60.88))
+                .lineToLinearHeading(new Pose2d(45.62, -59.11, Math.toRadians(0.00)))
+                .lineTo(new Vector2d(62.27, -60.88))
                 .build();
 
         TrajectorySequence middlepark = drive.trajectorySequenceBuilder(middlepath.end())
-                .lineToLinearHeading(new Pose2d(45.62, 59.11, Math.toRadians(0.00)))
-                .lineTo(new Vector2d(62.27, 60.88))
+                .lineToLinearHeading(new Pose2d(45.62, -59.11, Math.toRadians(0.00)))
+                .lineTo(new Vector2d(62.27, -60.88))
                 .build();
         TrajectorySequence rightpark = drive.trajectorySequenceBuilder(rightpath.end())
-                .lineToLinearHeading(new Pose2d(45.62, 62, Math.toRadians(0.00)))
-                .lineTo(new Vector2d(62.27, 60.88))
+                .lineToLinearHeading(new Pose2d(45.62, -62, Math.toRadians(0.00)))
+                .lineTo(new Vector2d(62.27, -60.88))
                 .build();
 
 
