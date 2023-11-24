@@ -2,8 +2,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.arcrobotics.ftclib.geometry.Pose2d;
+import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -12,16 +11,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
-import java.lang.annotation.ElementType;
 import java.util.List;
 @TeleOp
 @Config
 public class TeleopPIDS extends LinearOpMode {
-    Drivetrain drivetrain = new Drivetrain();
     Lift lift=new Lift();
     Motor intake;
     Servo deposit;
@@ -32,7 +27,17 @@ public class TeleopPIDS extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        drivetrain.init(hardwareMap);
+        Motor frontleft=new Motor(hardwareMap, "frontleft");
+        Motor frontright=new Motor(hardwareMap, "frontright");
+        Motor backleft=new Motor(hardwareMap, "backleft");
+        Motor backright=new Motor(hardwareMap, "backright");
+
+        frontleft.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        frontright.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        backleft.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        backright.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+
+        MecanumDrive drivetrain=new MecanumDrive(frontleft,frontright,backleft,backright);
         lift.init(hardwareMap);
         intake=new Motor(hardwareMap, "intake", Motor.GoBILDA.RPM_1620);
         deposit = hardwareMap.get(Servo.class, "deposit");
@@ -118,18 +123,6 @@ public class TeleopPIDS extends LinearOpMode {
             }
             hang.setPower(gamepad1.right_trigger-gamepad1.left_trigger);//hang
 
-
-            drivetrain.localizer.updatePose();
-
-            TelemetryPacket packet = new TelemetryPacket();
-            Pose2d position = drivetrain.localizer.getPose();
-            packet.fieldOverlay().setFill("blue")
-                    .strokeCircle(position.getX(), position.getY(), 9)
-                    .strokeLine(position.getX(), position.getY(),
-                            (position.getRotation().getCos()*10)+ position.getX(),
-                            (position.getRotation().getSin()*10)+ position.getY());
-
-            dashboard.sendTelemetryPacket(packet);
 
             double loop = System.nanoTime();
             telemetry.addData("Lift sensor", lift.getDistance());

@@ -24,7 +24,7 @@ import java.util.Objects;
 @Autonomous
 public class RRBlueClose extends LinearOpMode {
 
-    Lift lift=new Lift();
+    Lift lift = new Lift();
     OpenCvWebcam webcam;
     public static String ObjectDirection;
 
@@ -41,25 +41,34 @@ public class RRBlueClose extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+                "cameraMonitorViewId",
+                "id",
+                hardwareMap.appContext.getPackageName()
+        );
+
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(
+                WebcamName.class, "Webcam 1"), cameraMonitorViewId
+        );
 
         BluePipeline pipeline = new BluePipeline(telemetry, ObjectDirection);
         webcam.setPipeline(pipeline);
 
         webcam.setMillisecondsPermissionTimeout(5000); // Timeout for obtaining permission is configurable. Set before opening.
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
-        {@Override
+        {
+            @Override
             public void onOpened(){webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);}
             @Override
             public void onError(int errorCode)
-            {}});
+            {}
+        });
 
         lift.init(hardwareMap);
 
         FtcDashboard dashboard= FtcDashboard.getInstance();
 
-        SampleMecanumDrive drive=new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
                 .lineTo(new Vector2d(22, 40))
@@ -79,12 +88,13 @@ public class RRBlueClose extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(31.45, 35.05, Math.toRadians(180.00)))
                 .lineToLinearHeading(new Pose2d(30.75, 35.10, Math.toRadians(0)))
                 .lineToLinearHeading(new Pose2d(51, 29, Math.toRadians(0)))
-
                 .build();
+
         TrajectorySequence leftbluepark = drive.trajectorySequenceBuilder(leftpath.end())
                 .lineToLinearHeading(new Pose2d(45.62, 59.11, Math.toRadians(0.00)))
                 .lineTo(new Vector2d(62.27, 60.88))
                 .build();
+
         TrajectorySequence middlebluepark = drive.trajectorySequenceBuilder(middlepath.end())
                 .lineToLinearHeading(new Pose2d(45.62, 59.11, Math.toRadians(0.00)))
                 .lineTo(new Vector2d(62.27, 60.88))

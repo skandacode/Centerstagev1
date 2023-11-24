@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 @Config
-@Disabled
 public class servotest extends LinearOpMode {
     Servo hangservo;
     Servo droneservo;
