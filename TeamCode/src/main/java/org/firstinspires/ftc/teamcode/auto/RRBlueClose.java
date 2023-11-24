@@ -50,28 +50,25 @@ public class RRBlueClose extends LinearOpMode {
 
         SampleMecanumDrive drive=new SampleMecanumDrive(hardwareMap);
 
-        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(9.85, 65.18, Math.toRadians(270.00)))
-                .lineTo(new Vector2d(22.88, 35.75))
-                .lineTo(new Vector2d(24.07, 53.98))
-                .lineToLinearHeading(new Pose2d(44.86, 36.15, Math.toRadians(2.90)))
-                .splineTo(new Vector2d(55.16, 35.67), Math.toRadians(0.00))
-                .lineToLinearHeading(new Pose2d(55.35, 41.3, Math.toRadians(0.00)))
+        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
+                .lineTo(new Vector2d(22, 40))
+                .lineTo(new Vector2d(24, 54))
+                .lineToLinearHeading(new Pose2d(50, 45, Math.toRadians(0)))
                 .build();
 
-        TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(9.85, 65.18, Math.toRadians(270.00)))
-                .lineTo(new Vector2d(10.37, 31.31))
+        TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
+                .lineTo(new Vector2d(10, 35))
                 .lineTo(new Vector2d(20.70, 48.03))
-                .lineToLinearHeading(new Pose2d(44.86, 36.15, Math.toRadians(2.90)))
-                .splineTo(new Vector2d(55.16, 35.67), Math.toRadians(0.00))
-                .lineToLinearHeading(new Pose2d(55.35, 36, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(45, 36, Math.toRadians(0)))
+                //.splineTo(new Vector2d(55.16, 35.67), Math.toRadians(0.00))
                 .build();
 
-        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(9.85, 65.18, Math.toRadians(270.00)))
-                .splineTo(new Vector2d(5.49, 33.92), Math.toRadians(194.93))
+        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
+                .splineTo(new Vector2d(6, 37), Math.toRadians(194.93))
                 .lineToLinearHeading(new Pose2d(31.45, 35.05, Math.toRadians(180.00)))
-                .lineToLinearHeading(new Pose2d(30.75, 35.10, Math.toRadians(2.90)))
-                .splineTo(new Vector2d(55.16, 35.67), Math.toRadians(0.00))
-                .lineToLinearHeading(new Pose2d(55.35, 30, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(30.75, 35.10, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(49, 29, Math.toRadians(0)))
+
                 .build();
 
 
@@ -79,7 +76,7 @@ public class RRBlueClose extends LinearOpMode {
 
 
         List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
-        hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL));
+        hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO));
 
 
         while (opModeInInit()){
@@ -107,7 +104,7 @@ public class RRBlueClose extends LinearOpMode {
 
             sleep(100);
         }
-
+        waitForStart();
         if (randomization==PropPosition.LEFT){
             drive.followTrajectorySequence(leftpath);
         }else if (randomization==PropPosition.MIDDLE){
