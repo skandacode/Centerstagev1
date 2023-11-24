@@ -44,6 +44,9 @@ public class Lift {
         double power = liftController.calculate(lift1.getCurrentPosition());
         liftMotors.set(power+kF);
     }
+    public int getEncoderPos(){
+        return lift1.getCurrentPosition();
+    }
     public void open(){
         deposit.setPosition(0.55);
     }

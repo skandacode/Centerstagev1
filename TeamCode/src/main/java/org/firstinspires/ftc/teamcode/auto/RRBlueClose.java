@@ -6,6 +6,8 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.sfdev.assembly.state.StateMachine;
+import com.sfdev.assembly.state.StateMachineBuilder;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.roadrunner.SampleMecanumDrive;
@@ -25,6 +27,15 @@ public class RRBlueClose extends LinearOpMode {
     Lift lift=new Lift();
     OpenCvWebcam webcam;
     public static String ObjectDirection;
+
+    enum AutoStates{
+        TOBACKBOARD,
+        LIFT,
+        HALFOPEN,
+        FULLYOPEN,
+        RETRACT,
+        PARK
+    }
 
     public static PropPosition randomization=PropPosition.NONE;
     @Override
@@ -70,9 +81,86 @@ public class RRBlueClose extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(49, 29, Math.toRadians(0)))
 
                 .build();
+        TrajectorySequence leftbluepark = drive.trajectorySequenceBuilder(leftpath.start())
+                .lineToLinearHeading(new Pose2d(45.62, 59.11, Math.toRadians(0.00)))
+                .lineTo(new Vector2d(62.27, 60.88))
+                .build();
+        TrajectorySequence middlebluepark = drive.trajectorySequenceBuilder(middlepath.start())
+                .lineToLinearHeading(new Pose2d(45.62, 59.11, Math.toRadians(0.00)))
+                .lineTo(new Vector2d(62.27, 60.88))
+                .build();
+        TrajectorySequence rightbluepark = drive.trajectorySequenceBuilder(rightpath.start())
+                .lineToLinearHeading(new Pose2d(45.62, 59.11, Math.toRadians(0.00)))
+                .lineTo(new Vector2d(62.27, 60.88))
+                .build();
+
 
 
         drive.setPoseEstimate(rightpath.start());
+
+        StateMachine leftmachine = new StateMachineBuilder()
+                .state(AutoStates.TOBACKBOARD)
+                .onEnter(() -> drive.followTrajectorySequenceAsync(leftpath))
+                .transition(() -> !drive.isBusy())
+                .state(AutoStates.LIFT)
+                .onEnter(() -> lift.setTarget(700))
+                .transition(() -> lift.getEncoderPos()>600)
+                .state(AutoStates.HALFOPEN)
+                .onEnter(() -> lift.half_open())
+                .transitionTimed(1)
+                .state(AutoStates.FULLYOPEN)
+                .onEnter(()->lift.open())
+                .transitionTimed(2)
+                .state(AutoStates.RETRACT)
+                .onEnter(()->{
+                    lift.setPower(-0.6);
+                    lift.close();
+                }).transition(()->lift.is_down())
+                .state(AutoStates.PARK)
+                .onEnter(()->drive.followTrajectorySequenceAsync(leftbluepark))
+                .transition(()->!drive.isBusy()).build();
+        StateMachine middlemachine = new StateMachineBuilder()
+                .state(AutoStates.TOBACKBOARD)
+                .onEnter(() -> drive.followTrajectorySequenceAsync(middlepath))
+                .transition(() -> !drive.isBusy())
+                .state(AutoStates.LIFT)
+                .onEnter(() -> lift.setTarget(700))
+                .transition(() -> lift.getEncoderPos()>600)
+                .state(AutoStates.HALFOPEN)
+                .onEnter(() -> lift.half_open())
+                .transitionTimed(1)
+                .state(AutoStates.FULLYOPEN)
+                .onEnter(()->lift.open())
+                .transitionTimed(2)
+                .state(AutoStates.RETRACT)
+                .onEnter(()->{
+                    lift.setPower(-0.6);
+                    lift.close();
+                }).transition(()->lift.is_down())
+                .state(AutoStates.PARK)
+                .onEnter(()->drive.followTrajectorySequenceAsync(middlebluepark))
+                .transition(()->!drive.isBusy()).build();
+        StateMachine rightmachine = new StateMachineBuilder()
+                .state(AutoStates.TOBACKBOARD)
+                .onEnter(() -> drive.followTrajectorySequenceAsync(rightpath))
+                .transition(() -> !drive.isBusy())
+                .state(AutoStates.LIFT)
+                .onEnter(() -> lift.setTarget(700))
+                .transition(() -> lift.getEncoderPos()>600)
+                .state(AutoStates.HALFOPEN)
+                .onEnter(() -> lift.half_open())
+                .transitionTimed(1)
+                .state(AutoStates.FULLYOPEN)
+                .onEnter(()->lift.open())
+                .transitionTimed(2)
+                .state(AutoStates.RETRACT)
+                .onEnter(()->{
+                    lift.setPower(-0.6);
+                    lift.close();
+                }).transition(()->lift.is_down())
+                .state(AutoStates.PARK)
+                .onEnter(()->drive.followTrajectorySequenceAsync(rightbluepark))
+                .transition(()->!drive.isBusy()).build();
 
 
         List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
@@ -106,11 +194,26 @@ public class RRBlueClose extends LinearOpMode {
         }
         waitForStart();
         if (randomization==PropPosition.LEFT){
-            drive.followTrajectorySequence(leftpath);
+            leftmachine.start();
+            while (opModeIsActive()){
+                leftmachine.update();
+                lift.update();
+                drive.update();
+            }
         }else if (randomization==PropPosition.MIDDLE){
-            drive.followTrajectorySequence(middlepath);
+            middlemachine.start();
+            while (opModeIsActive()){
+                middlemachine.update();
+                lift.update();
+                drive.update();
+            }
         }else if (randomization==PropPosition.RIGHT){
-            drive.followTrajectorySequence(rightpath);
+            rightmachine.start();
+            while (opModeIsActive()){
+                rightmachine.update();
+                lift.update();
+                drive.update();
+            }
         }
     }
 }
