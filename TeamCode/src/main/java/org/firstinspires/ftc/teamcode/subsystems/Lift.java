@@ -23,7 +23,7 @@ public class Lift {
     public static double kF=0.11;
 
     public static double down_cutoff=8;
-    PIDFController liftController=new PIDFController(kP, 0, kD, 0);
+    public PIDFController liftController=new PIDFController(kP, 0, kD, 0);
 
     public void init(HardwareMap hardwareMap){
         lift1=new Motor(hardwareMap, "outtake1", Motor.GoBILDA.RPM_1150);

@@ -155,11 +155,15 @@ public class RRBlueClose extends LinearOpMode {
                 .transitionTimed(2)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
+                    lift.setTarget(0);
                     lift.setPower(-0.6);
                     lift.close();
                 }).transition(()->lift.is_down())
                 .state(AutoStates.PARK)
-                .onEnter(()->drive.followTrajectorySequenceAsync(rightbluepark))
+                .onEnter(()->{
+                    drive.followTrajectorySequenceAsync(rightbluepark);
+                    lift.setPower(0);
+                })
                 .transition(()->!drive.isBusy()).build();
 
 
@@ -197,21 +201,27 @@ public class RRBlueClose extends LinearOpMode {
             leftmachine.start();
             while (opModeIsActive()){
                 leftmachine.update();
-                lift.update();
+                if (lift.liftController.getSetPoint()>0){
+                    lift.update();
+                }
                 drive.update();
             }
         }else if (randomization==PropPosition.MIDDLE){
             middlemachine.start();
             while (opModeIsActive()){
                 middlemachine.update();
-                lift.update();
+                if (lift.liftController.getSetPoint()>0){
+                    lift.update();
+                }
                 drive.update();
             }
         }else if (randomization==PropPosition.RIGHT){
             rightmachine.start();
             while (opModeIsActive()){
                 rightmachine.update();
-                lift.update();
+                if (lift.liftController.getSetPoint()>0){
+                    lift.update();
+                }
                 drive.update();
             }
         }
