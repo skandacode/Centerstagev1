@@ -70,17 +70,15 @@ public class RRBlueFar extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(-33.88, 67.06, Math.toRadians(266.99)))
+        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(-33.88, 67.06, Math.toRadians(270)))
                 .splineToLinearHeading(new Pose2d(-47.34, 33.41, Math.toRadians(270.00)), Math.toRadians(270.00))
                 .lineToLinearHeading(new Pose2d(-46.94, 49.92, Math.toRadians(270.00)))
                 .lineToLinearHeading(new Pose2d(-52.51, 49.92, Math.toRadians(270.00)))
                 .lineToSplineHeading(new Pose2d(-51.51, 11.54, Math.toRadians(0.00)))
-                .splineTo(new Vector2d(37.79, 19.09), Math.toRadians(30.00))
-                .splineTo(new Vector2d(49.83, 34.48), Math.toRadians(0.00))
                 .build();
 
 
-        TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(-33.88, 67.06, Math.toRadians(266.99)))
+        TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(-33.88, 67.06, Math.toRadians(270)))
                 .splineToLinearHeading(new Pose2d(-24.26, 35.55, Math.toRadians(300.00)), Math.toRadians(300.00))
                 .lineToLinearHeading(new Pose2d(-49.59, 37.09, Math.toRadians(0.00)))
                 .lineToSplineHeading(new Pose2d(-40.82, 11.02, Math.toRadians(0.00)))
@@ -89,7 +87,7 @@ public class RRBlueFar extends LinearOpMode {
                 .build();
 
 
-        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(-33.88, 67.06, Math.toRadians(266.99)))
+        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(-33.88, 67.06, Math.toRadians(270)))
                 .splineToLinearHeading(new Pose2d(-24.26, 35.55, Math.toRadians(300.00)), Math.toRadians(300.00))
                 .lineToLinearHeading(new Pose2d(-49.59, 37.09, Math.toRadians(0.00)))
                 .lineToSplineHeading(new Pose2d(-40.82, 11.02, Math.toRadians(0.00)))
