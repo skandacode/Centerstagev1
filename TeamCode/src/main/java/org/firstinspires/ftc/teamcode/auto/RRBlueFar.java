@@ -81,14 +81,14 @@ public class RRBlueFar extends LinearOpMode {
 
 
 
-        TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(-33.88, 67.06, Math.toRadians(266.99)))
-                .lineToLinearHeading(new Pose2d(-37.39, 26.25, Math.toRadians(270.00)))
-                .lineToLinearHeading(new Pose2d(-35.60, 49.72, Math.toRadians(270.00)))
-                .lineToLinearHeading(new Pose2d(-62.65, 50.12, Math.toRadians(270.00)))
-                .lineToSplineHeading(new Pose2d(-62.06, 9.75, Math.toRadians(270.00)))
-                .lineToLinearHeading(new Pose2d(36.80, 10.54, Math.toRadians(270.00)))
-                .lineToLinearHeading(new Pose2d(36.60, 10.74, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(57.48, 35.01, Math.toRadians(0.00)))
+        TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(-34, 67, Math.toRadians(266.99)))
+                .lineToLinearHeading(new Pose2d(-37, 37, Math.toRadians(270.00)))
+                .lineToLinearHeading(new Pose2d(-36, 49, Math.toRadians(270.00)))
+                .lineToLinearHeading(new Pose2d(-53, 50, Math.toRadians(270.00)))
+                .lineToSplineHeading(new Pose2d(-52, 15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(35, 20, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(35, 45, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(53, 45, Math.toRadians(0)))
                 .build();
 
 
@@ -102,23 +102,9 @@ public class RRBlueFar extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(57.68, 37.59, Math.toRadians(0.00)))
                 .build();
 
-        drive.setPoseEstimate(rightpath.start());
-
         drive.setPoseEstimate(leftpath.start());
 
-        TrajectorySequence leftpark = drive.trajectorySequenceBuilder(leftpath.end())
-                .lineToLinearHeading(new Pose2d(45.62, 59.11, Math.toRadians(0.00)))
-                .lineTo(new Vector2d(62.27, 60.88))
-                .build();
 
-        TrajectorySequence middlepark = drive.trajectorySequenceBuilder(middlepath.end())
-                .lineToLinearHeading(new Pose2d(45.62, 59.11, Math.toRadians(0.00)))
-                .lineTo(new Vector2d(62.27, 60.88))
-                .build();
-        TrajectorySequence rightpark = drive.trajectorySequenceBuilder(rightpath.end())
-                .lineToLinearHeading(new Pose2d(45.62, 62, Math.toRadians(0.00)))
-                .lineTo(new Vector2d(62.27, 60.88))
-                .build();
 
 
 
@@ -141,11 +127,6 @@ public class RRBlueFar extends LinearOpMode {
                 .onEnter(()->{
                     lift.setTarget(-50);
                     lift.close();
-                }).transition(()->lift.is_down())
-                .state(AutoStates.PARK)
-                .onEnter(()->{
-                    drive.followTrajectorySequenceAsync(leftpark);
-                    lift.setTarget(0);
                 })
                 .build();
         StateMachine middlemachine = new StateMachineBuilder()
@@ -165,11 +146,6 @@ public class RRBlueFar extends LinearOpMode {
                 .onEnter(()->{
                     lift.setTarget(-50);
                     lift.close();
-                }).transition(()->lift.is_down())
-                .state(AutoStates.PARK)
-                .onEnter(()->{
-                    drive.followTrajectorySequenceAsync(middlepark);
-                    lift.setTarget(0);
                 })
                 .build();
         StateMachine rightmachine = new StateMachineBuilder()
@@ -189,11 +165,6 @@ public class RRBlueFar extends LinearOpMode {
                 .onEnter(()->{
                     lift.setTarget(-50);
                     lift.close();
-                }).transition(()->lift.is_down())
-                .state(AutoStates.PARK)
-                .onEnter(()->{
-                    drive.followTrajectorySequenceAsync(rightpark);
-                    lift.setTarget(0);
                 })
                 .build();
 
