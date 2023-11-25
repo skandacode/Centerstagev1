@@ -71,38 +71,37 @@ public class RRRedClose extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(10, -65.18, Math.toRadians(90)))
-                .lineTo(new Vector2d(22, -40))
+        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(10, -65.18, Math.toRadians(90)))
+                .lineTo(new Vector2d(21, -40))
                 .lineTo(new Vector2d(24, -54))
-                .lineToLinearHeading(new Pose2d(51, -45, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(50, -44, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(10, -65.18, Math.toRadians(90)))
                 .lineTo(new Vector2d(10, -35))
                 .lineTo(new Vector2d(20.70, -48.03))
-                .lineToLinearHeading(new Pose2d(51, -36, Math.toRadians(0)))
-                //.splineTo(new Vector2d(55.16, 35.67), Math.toRadians(0.00))
+                .lineToLinearHeading(new Pose2d(50, -36, Math.toRadians(0)))
                 .build();
 
-        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(10, -65.18, Math.toRadians(90)))
+        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(10, -65.18, Math.toRadians(90)))
                 .splineTo(new Vector2d(6, -37), Math.toRadians(360.0-194.93))
                 .lineToLinearHeading(new Pose2d(31.45, -35.05, Math.toRadians(180.00)))
                 .lineToLinearHeading(new Pose2d(30.75, -35.10, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(51, -29, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(50, -29, Math.toRadians(0)))
                 .build();
 
-        TrajectorySequence leftpark = drive.trajectorySequenceBuilder(leftpath.end())
-                .lineToLinearHeading(new Pose2d(45.62, -59.11, Math.toRadians(0.00)))
-                .lineTo(new Vector2d(62.27, -60.88))
+        TrajectorySequence rightpark = drive.trajectorySequenceBuilder(rightpath.end())
+                .lineToLinearHeading(new Pose2d(30, -57, Math.toRadians(0.00)))
+                .lineTo(new Vector2d(60, -62))
                 .build();
 
         TrajectorySequence middlepark = drive.trajectorySequenceBuilder(middlepath.end())
-                .lineToLinearHeading(new Pose2d(45.62, -59.11, Math.toRadians(0.00)))
-                .lineTo(new Vector2d(62.27, -60.88))
+                .lineToLinearHeading(new Pose2d(30, -57, Math.toRadians(0.00)))
+                .lineTo(new Vector2d(60, -62))
                 .build();
-        TrajectorySequence rightpark = drive.trajectorySequenceBuilder(rightpath.end())
-                .lineToLinearHeading(new Pose2d(45.62, -62, Math.toRadians(0.00)))
-                .lineTo(new Vector2d(62.27, -60.88))
+        TrajectorySequence leftpark = drive.trajectorySequenceBuilder(leftpath.end())
+                .lineToLinearHeading(new Pose2d(30, -57, Math.toRadians(0.00)))
+                .lineTo(new Vector2d(60, -62))
                 .build();
 
 
@@ -184,7 +183,7 @@ public class RRRedClose extends LinearOpMode {
 
 
         List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
-        hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO));
+        hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL));
 
 
         while (opModeInInit()){
@@ -215,37 +214,49 @@ public class RRRedClose extends LinearOpMode {
         waitForStart();
 
         webcam.closeCameraDevice();
+
+        double loopTime=0.0;
+
         if (randomization==PropPosition.LEFT){
             leftmachine.start();
             while (opModeIsActive()){
+                hubs.forEach(LynxModule::clearBulkCache);
                 leftmachine.update();
                 lift.update();
                 drive.update();
                 telemetry.addData("Height", lift.getEncoderPos());
                 telemetry.addData("Target", lift.getSetPoint());
-
+                double loop = System.nanoTime();
+                telemetry.addData("hz ", 1000000000 / (loop - loopTime));
+                loopTime = loop;
                 telemetry.update();
             }
         }else if (randomization==PropPosition.MIDDLE){
             middlemachine.start();
             while (opModeIsActive()){
+                hubs.forEach(LynxModule::clearBulkCache);
                 middlemachine.update();
                 lift.update();
                 drive.update();
                 telemetry.addData("Height", lift.getEncoderPos());
                 telemetry.addData("Target", lift.getSetPoint());
-
+                double loop = System.nanoTime();
+                telemetry.addData("hz ", 1000000000 / (loop - loopTime));
+                loopTime = loop;
                 telemetry.update();
             }
         }else if (randomization==PropPosition.RIGHT){
             rightmachine.start();
             while (opModeIsActive()){
+                hubs.forEach(LynxModule::clearBulkCache);
                 rightmachine.update();
                 lift.update();
                 drive.update();
                 telemetry.addData("Height", lift.getEncoderPos());
                 telemetry.addData("Target", lift.getSetPoint());
-
+                double loop = System.nanoTime();
+                telemetry.addData("hz ", 1000000000 / (loop - loopTime));
+                loopTime = loop;
                 telemetry.update();
             }
         }

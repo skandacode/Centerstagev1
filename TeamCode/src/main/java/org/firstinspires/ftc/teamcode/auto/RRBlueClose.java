@@ -214,6 +214,9 @@ public class RRBlueClose extends LinearOpMode {
         waitForStart();
 
         webcam.closeCameraDevice();
+
+        double loopTime=0.0;
+
         if (randomization==PropPosition.LEFT){
             leftmachine.start();
             while (opModeIsActive()){
@@ -222,7 +225,9 @@ public class RRBlueClose extends LinearOpMode {
                 drive.update();
                 telemetry.addData("Height", lift.getEncoderPos());
                 telemetry.addData("Target", lift.getSetPoint());
-
+                double loop = System.nanoTime();
+                telemetry.addData("hz ", 1000000000 / (loop - loopTime));
+                loopTime = loop;
                 telemetry.update();
             }
         }else if (randomization==PropPosition.MIDDLE){
@@ -233,7 +238,9 @@ public class RRBlueClose extends LinearOpMode {
                 drive.update();
                 telemetry.addData("Height", lift.getEncoderPos());
                 telemetry.addData("Target", lift.getSetPoint());
-
+                double loop = System.nanoTime();
+                telemetry.addData("hz ", 1000000000 / (loop - loopTime));
+                loopTime = loop;
                 telemetry.update();
             }
         }else if (randomization==PropPosition.RIGHT){
@@ -244,7 +251,9 @@ public class RRBlueClose extends LinearOpMode {
                 drive.update();
                 telemetry.addData("Height", lift.getEncoderPos());
                 telemetry.addData("Target", lift.getSetPoint());
-
+                double loop = System.nanoTime();
+                telemetry.addData("hz ", 1000000000 / (loop - loopTime));
+                loopTime = loop;
                 telemetry.update();
             }
         }
