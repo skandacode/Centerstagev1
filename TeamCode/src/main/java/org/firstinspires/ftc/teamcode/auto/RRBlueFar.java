@@ -70,45 +70,42 @@ public class RRBlueFar extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(-33.88, 67.06, Math.toRadians(266.99)))
+        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(-34, 67, Math.toRadians(270)))
                 .lineToLinearHeading(new Pose2d(-48.93, 34.21, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(-30.83, 32.42, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(-62.85, 32.62, Math.toRadians(0.00)))
-                .lineToSplineHeading(new Pose2d(-62.65, 10.54, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(36.60, 10.74, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(57.68, 40.57, Math.toRadians(0.00)))
+                .forward(18)
+                .lineToLinearHeading(new Pose2d(-53, 50, Math.toRadians(0.00)))
+                .lineToSplineHeading(new Pose2d(-52, 15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(35, 20, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(35, 51, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(53, 51, Math.toRadians(0)))
                 .build();
 
 
 
-        TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(-34, 67, Math.toRadians(266.99)))
+        TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(-34, 67, Math.toRadians(270)))
                 .lineToLinearHeading(new Pose2d(-37, 37, Math.toRadians(270.00)))
                 .lineToLinearHeading(new Pose2d(-36, 49, Math.toRadians(270.00)))
                 .lineToLinearHeading(new Pose2d(-53, 50, Math.toRadians(270.00)))
                 .lineToSplineHeading(new Pose2d(-52, 15, Math.toRadians(0.00)))
                 .lineToLinearHeading(new Pose2d(35, 20, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(35, 45, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(53, 45, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(35, 47, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(55, 47, Math.toRadians(0)))
                 .build();
 
 
-        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(-33.88, 67.06, Math.toRadians(266.99)))
-                .lineToLinearHeading(new Pose2d(-47.34, 31.82, Math.toRadians(270.00)))
-                .lineToLinearHeading(new Pose2d(-46.94, 49.92, Math.toRadians(270.00)))
-                .lineToLinearHeading(new Pose2d(-62.65, 50.12, Math.toRadians(270.00)))
-                .lineToSplineHeading(new Pose2d(-62.06, 9.75, Math.toRadians(270.00)))
-                .lineToLinearHeading(new Pose2d(36.80, 10.54, Math.toRadians(270.00)))
-                .lineToLinearHeading(new Pose2d(36.60, 10.74, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(57.68, 37.59, Math.toRadians(0.00)))
+        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(-34, 67, Math.toRadians(270)))
+                .lineToLinearHeading(new Pose2d(-46, 45, Math.toRadians(270.00)))
+                .lineToLinearHeading(new Pose2d(-32, 60, Math.toRadians(270.00)))
+                .lineToLinearHeading(new Pose2d(-35, 20, Math.toRadians(270.00)))
+                .lineToSplineHeading(new Pose2d(-35, 15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(35, 20, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(35, 33, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(53, 33, Math.toRadians(0)))
                 .build();
 
         drive.setPoseEstimate(leftpath.start());
 
 
-
-
-
-        drive.setPoseEstimate(rightpath.start());
 
         StateMachine leftmachine = new StateMachineBuilder()
                 .state(AutoStates.TOBACKBOARD)
@@ -171,7 +168,7 @@ public class RRBlueFar extends LinearOpMode {
 
         List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
         hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO));
-
+        lift.close();
 
         while (opModeInInit()){
             telemetry.addData("Frame Count", webcam.getFrameCount());

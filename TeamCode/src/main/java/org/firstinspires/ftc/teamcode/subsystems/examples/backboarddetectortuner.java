@@ -1,32 +1,33 @@
 package org.firstinspires.ftc.teamcode.subsystems.examples;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 @TeleOp
-@Disabled
-public class liftendtuner extends LinearOpMode {
-    Lift lift=new Lift();
-
+@Config
+public class backboarddetectortuner extends LinearOpMode {
+    public static double threshold=6;
     @Override
     public void runOpMode() throws InterruptedException {
-        lift.init(hardwareMap);
         FtcDashboard dashboard = FtcDashboard.getInstance();
+        RevColorSensorV3 backboarddetector=(RevColorSensorV3) hardwareMap.colorSensor.get("backboarddetector");
 
         waitForStart();
         while (opModeIsActive()){
             TelemetryPacket packet = new TelemetryPacket();
-            double distance= lift.getDistance();
+            double distance= backboarddetector.getDistance(DistanceUnit.CM);
             packet.put("distance", distance);
-            packet.put("threshold", lift.down_cutoff);
-            if (distance> lift.down_cutoff){
-                packet.put("status", "up");
+            packet.put("threshold", threshold);
+            if (distance> threshold){
+                packet.put("status", "not at backboard");
             }else{
-                packet.put("status", "down");
+                packet.put("status", "at backboard");
             }
             dashboard.sendTelemetryPacket(packet);
         }
