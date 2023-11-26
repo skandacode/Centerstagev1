@@ -100,7 +100,7 @@ public class RRBlueFar extends LinearOpMode {
                 .lineToSplineHeading(new Pose2d(-35, 15, Math.toRadians(0.00)))
                 .lineToLinearHeading(new Pose2d(35, 20, Math.toRadians(0.00)))
                 .lineToLinearHeading(new Pose2d(35, 33, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(53, 33, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(53, 35, Math.toRadians(0)))
                 .build();
 
         drive.setPoseEstimate(leftpath.start());
