@@ -70,53 +70,45 @@ public class RRRedFar extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(-33.88, -67.06, Math.toRadians(90)))
-                .splineToLinearHeading(new Pose2d(-47.34, -33.41, Math.toRadians(270.00)), Math.toRadians(90.00))
-                .lineToLinearHeading(new Pose2d(-46.94, -49.92, Math.toRadians(90.00)))
-                .lineToLinearHeading(new Pose2d(-52.51, -49.92, Math.toRadians(90.00)))
-                .lineToSplineHeading(new Pose2d(-51.51, -11.54, Math.toRadians(0.00)))
-                .splineTo(new Vector2d(37.79, -19.09), Math.toRadians(330.00))
-                .splineTo(new Vector2d(49.83, -34.48), Math.toRadians(0.00))
+        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(-34, -67, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(-48.93, -34.21, Math.toRadians(0.00)))
+                .forward(18)
+                .lineToLinearHeading(new Pose2d(-53, -34, Math.toRadians(0.00)))
+                .lineToSplineHeading(new Pose2d(-52, -15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(20, -15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(35, -30, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(35, -50, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(55, -52, Math.toRadians(0)))
                 .build();
 
 
-        TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(-33.88, -67.06, Math.toRadians(90)))
-                .splineToLinearHeading(new Pose2d(-24.26, -35.55, Math.toRadians(300.00)), Math.toRadians(60.00))
-                .lineToLinearHeading(new Pose2d(-49.59, -37.09, Math.toRadians(0.00)))
-                .lineToSplineHeading(new Pose2d(-40.82, -11.02, Math.toRadians(0.00)))
-                .splineTo(new Vector2d(37.79, -19.09), Math.toRadians(330.00))
-                .splineTo(new Vector2d(49.83, -34.48), Math.toRadians(0.00))
+
+        TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(-34, -67, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(-37, -37, Math.toRadians(90.00)))
+                .lineToLinearHeading(new Pose2d(-36, -49, Math.toRadians(90.00)))
+                .lineToLinearHeading(new Pose2d(-53, -50, Math.toRadians(90.00)))
+                .lineToSplineHeading(new Pose2d(-52, -15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(20, -15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(35, -30, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(35, -43, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(55, -45, Math.toRadians(0)))
                 .build();
 
 
-        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(-33.88, -67.06, Math.toRadians(90)))
-                .splineToLinearHeading(new Pose2d(-24.26, -35.55, Math.toRadians(300.00)), Math.toRadians(60.00))
-                .lineToLinearHeading(new Pose2d(-49.59, -37.09, Math.toRadians(0.00)))
-                .lineToSplineHeading(new Pose2d(-40.82, -11.02, Math.toRadians(0.00)))
-                .splineTo(new Vector2d(37.79, -19.09), Math.toRadians(330.00))
-                .splineTo(new Vector2d(49.83, -34.48), Math.toRadians(0.00))
+        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(-34, -67, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(-46, -45, Math.toRadians(90.00)))
+                .lineToLinearHeading(new Pose2d(-32, -60, Math.toRadians(90.00)))
+                .lineToLinearHeading(new Pose2d(-35, -20, Math.toRadians(90.00)))
+                .lineToSplineHeading(new Pose2d(-52, -15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(20, -15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(35, -30, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(35, -37, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(55, -37, Math.toRadians(0)))
                 .build();
-        drive.setPoseEstimate(rightpath.start());
 
         drive.setPoseEstimate(leftpath.start());
 
-        TrajectorySequence leftpark = drive.trajectorySequenceBuilder(leftpath.end())
-                .lineToLinearHeading(new Pose2d(45.62, -59.11, Math.toRadians(0.00)))
-                .lineTo(new Vector2d(62.27, -60.88))
-                .build();
 
-        TrajectorySequence middlepark = drive.trajectorySequenceBuilder(middlepath.end())
-                .lineToLinearHeading(new Pose2d(45.62, -59.11, Math.toRadians(0.00)))
-                .lineTo(new Vector2d(62.27, -60.88))
-                .build();
-        TrajectorySequence rightpark = drive.trajectorySequenceBuilder(rightpath.end())
-                .lineToLinearHeading(new Pose2d(45.62, -62, Math.toRadians(0.00)))
-                .lineTo(new Vector2d(62.27, -60.88))
-                .build();
-
-
-
-        drive.setPoseEstimate(rightpath.start());
 
         StateMachine leftmachine = new StateMachineBuilder()
                 .state(AutoStates.TOBACKBOARD)
@@ -135,11 +127,6 @@ public class RRRedFar extends LinearOpMode {
                 .onEnter(()->{
                     lift.setTarget(-50);
                     lift.close();
-                }).transition(()->lift.is_down())
-                .state(AutoStates.PARK)
-                .onEnter(()->{
-                    drive.followTrajectorySequenceAsync(leftpark);
-                    lift.setTarget(0);
                 })
                 .build();
         StateMachine middlemachine = new StateMachineBuilder()
@@ -159,11 +146,6 @@ public class RRRedFar extends LinearOpMode {
                 .onEnter(()->{
                     lift.setTarget(-50);
                     lift.close();
-                }).transition(()->lift.is_down())
-                .state(AutoStates.PARK)
-                .onEnter(()->{
-                    drive.followTrajectorySequenceAsync(middlepark);
-                    lift.setTarget(0);
                 })
                 .build();
         StateMachine rightmachine = new StateMachineBuilder()
@@ -183,18 +165,13 @@ public class RRRedFar extends LinearOpMode {
                 .onEnter(()->{
                     lift.setTarget(-50);
                     lift.close();
-                }).transition(()->lift.is_down())
-                .state(AutoStates.PARK)
-                .onEnter(()->{
-                    drive.followTrajectorySequenceAsync(rightpark);
-                    lift.setTarget(0);
                 })
                 .build();
 
 
         List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
-        hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO));
-
+        hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL));
+        lift.close();
 
         while (opModeInInit()){
             telemetry.addData("Frame Count", webcam.getFrameCount());
@@ -230,6 +207,7 @@ public class RRRedFar extends LinearOpMode {
         if (randomization==PropPosition.LEFT){
             leftmachine.start();
             while (opModeIsActive()){
+                hubs.forEach(LynxModule::clearBulkCache);
                 leftmachine.update();
                 lift.update();
                 drive.update();
@@ -243,6 +221,7 @@ public class RRRedFar extends LinearOpMode {
         }else if (randomization==PropPosition.MIDDLE){
             middlemachine.start();
             while (opModeIsActive()){
+                hubs.forEach(LynxModule::clearBulkCache);
                 middlemachine.update();
                 lift.update();
                 drive.update();
@@ -256,6 +235,7 @@ public class RRRedFar extends LinearOpMode {
         }else if (randomization==PropPosition.RIGHT){
             rightmachine.start();
             while (opModeIsActive()){
+                hubs.forEach(LynxModule::clearBulkCache);
                 rightmachine.update();
                 lift.update();
                 drive.update();

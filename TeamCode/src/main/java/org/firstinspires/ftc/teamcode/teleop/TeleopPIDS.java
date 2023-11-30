@@ -101,9 +101,9 @@ public class TeleopPIDS extends LinearOpMode {
             if (current_open){
                 if (!prev_open) {//first time it is opened
                     timer.reset();
-                    lift.half_open();
+                    lift.half_open_teleop();
                 }else if (timer.milliseconds()<500){
-                    lift.half_open();
+                    lift.half_open_teleop();
                 }else{
                     lift.open();
                 }

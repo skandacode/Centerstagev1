@@ -86,7 +86,7 @@ public class RRBlueFar extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(-37, 37, Math.toRadians(270.00)))
                 .lineToLinearHeading(new Pose2d(-36, 49, Math.toRadians(270.00)))
                 .lineToLinearHeading(new Pose2d(-53, 50, Math.toRadians(270.00)))
-                .lineToSplineHeading(new Pose2d(-52, 15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-52, 15, Math.toRadians(0.00)))
                 .lineToLinearHeading(new Pose2d(35, 20, Math.toRadians(0.00)))
                 .lineToLinearHeading(new Pose2d(35, 47, Math.toRadians(0.00)))
                 .lineToLinearHeading(new Pose2d(55, 47, Math.toRadians(0)))
@@ -167,7 +167,7 @@ public class RRBlueFar extends LinearOpMode {
 
 
         List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
-        hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO));
+        hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL));
         lift.close();
 
         while (opModeInInit()){
@@ -204,6 +204,7 @@ public class RRBlueFar extends LinearOpMode {
         if (randomization==PropPosition.LEFT){
             leftmachine.start();
             while (opModeIsActive()){
+                hubs.forEach(LynxModule::clearBulkCache);
                 leftmachine.update();
                 lift.update();
                 drive.update();
@@ -217,6 +218,7 @@ public class RRBlueFar extends LinearOpMode {
         }else if (randomization==PropPosition.MIDDLE){
             middlemachine.start();
             while (opModeIsActive()){
+                hubs.forEach(LynxModule::clearBulkCache);
                 middlemachine.update();
                 lift.update();
                 drive.update();
@@ -230,6 +232,7 @@ public class RRBlueFar extends LinearOpMode {
         }else if (randomization==PropPosition.RIGHT){
             rightmachine.start();
             while (opModeIsActive()){
+                hubs.forEach(LynxModule::clearBulkCache);
                 rightmachine.update();
                 lift.update();
                 drive.update();

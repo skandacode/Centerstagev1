@@ -122,7 +122,7 @@ public class RRBlueClose extends LinearOpMode {
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(2)
                 .state(AutoStates.FULLYOPEN)
-                .onEnter(()->lift.close())
+                .onEnter(()->lift.open())
                 .transitionTimed(2)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
@@ -146,7 +146,7 @@ public class RRBlueClose extends LinearOpMode {
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(2)
                 .state(AutoStates.FULLYOPEN)
-                .onEnter(()->lift.close())
+                .onEnter(()->lift.open())
                 .transitionTimed(2)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
@@ -170,7 +170,7 @@ public class RRBlueClose extends LinearOpMode {
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(2)
                 .state(AutoStates.FULLYOPEN)
-                .onEnter(()->lift.close())
+                .onEnter(()->lift.open())
                 .transitionTimed(2)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
@@ -186,8 +186,8 @@ public class RRBlueClose extends LinearOpMode {
 
 
         List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
-        hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO));
-
+        hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL));
+        lift.close();
 
         while (opModeInInit()){
             telemetry.addData("Frame Count", webcam.getFrameCount());
@@ -223,6 +223,7 @@ public class RRBlueClose extends LinearOpMode {
         if (randomization==PropPosition.LEFT){
             leftmachine.start();
             while (opModeIsActive()){
+                hubs.forEach(LynxModule::clearBulkCache);
                 leftmachine.update();
                 lift.update();
                 drive.update();
@@ -236,6 +237,7 @@ public class RRBlueClose extends LinearOpMode {
         }else if (randomization==PropPosition.MIDDLE){
             middlemachine.start();
             while (opModeIsActive()){
+                hubs.forEach(LynxModule::clearBulkCache);
                 middlemachine.update();
                 lift.update();
                 drive.update();
@@ -249,6 +251,7 @@ public class RRBlueClose extends LinearOpMode {
         }else if (randomization==PropPosition.RIGHT){
             rightmachine.start();
             while (opModeIsActive()){
+                hubs.forEach(LynxModule::clearBulkCache);
                 rightmachine.update();
                 lift.update();
                 drive.update();

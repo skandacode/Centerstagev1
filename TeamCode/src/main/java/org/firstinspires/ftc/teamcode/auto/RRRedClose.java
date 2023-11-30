@@ -119,7 +119,7 @@ public class RRRedClose extends LinearOpMode {
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(2)
                 .state(AutoStates.FULLYOPEN)
-                .onEnter(()->lift.close())
+                .onEnter(()->lift.open())
                 .transitionTimed(2)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
@@ -184,7 +184,7 @@ public class RRRedClose extends LinearOpMode {
 
         List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
         hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL));
-
+        lift.close();
 
         while (opModeInInit()){
             telemetry.addData("Frame Count", webcam.getFrameCount());
