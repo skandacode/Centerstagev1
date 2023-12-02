@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -16,9 +17,13 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import java.util.List;
 
 @TeleOp
+@Config
 public class movewithapriltag extends LinearOpMode {
     private AprilTagProcessor aprilTag;
     private VisionPortal visionPortal;
+    public static int tag=3;
+    public static double offset=3;
+
     @Override
     public void runOpMode() throws InterruptedException {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
@@ -38,7 +43,7 @@ public class movewithapriltag extends LinearOpMode {
             if (currentDetections.size()>0) {
                 for (AprilTagDetection detection : currentDetections) {
                     if (detection.metadata != null) {
-                        if (detection.id == 1) {
+                        if (detection.id == tag) {
                             telemetry.addLine(String.format("\n==== (ID %d) %s", detection.id, detection.metadata.name));
                             telemetry.addLine(String.format("XYZ %6.1f %6.1f %6.1f  (inch)", detection.ftcPose.x, detection.ftcPose.y, detection.ftcPose.z));
                             telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
@@ -54,7 +59,7 @@ public class movewithapriltag extends LinearOpMode {
         }
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         TrajectorySequence path = drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0))
-                .lineToLinearHeading(new Pose2d(y-7, -x, Math.toRadians(yaw)))
+                .lineToLinearHeading(new Pose2d(y-offset, -x, Math.toRadians(yaw)))
                 .build();
         drive.followTrajectorySequence(path);
     }

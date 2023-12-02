@@ -73,13 +73,13 @@ public class RRBlueClose extends LinearOpMode {
         TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
                 .lineTo(new Vector2d(22, 40))
                 .lineTo(new Vector2d(24, 54))
-                .lineToLinearHeading(new Pose2d(51, 45, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(52, 44, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
                 .lineTo(new Vector2d(10, 35))
                 .lineTo(new Vector2d(20.70, 48.03))
-                .lineToLinearHeading(new Pose2d(51, 36, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(52, 36, Math.toRadians(0)))
                 //.splineTo(new Vector2d(55.16, 35.67), Math.toRadians(0.00))
                 .build();
 
@@ -87,7 +87,7 @@ public class RRBlueClose extends LinearOpMode {
                 .splineTo(new Vector2d(6, 37), Math.toRadians(194.93))
                 .lineToLinearHeading(new Pose2d(31.45, 35.05, Math.toRadians(180.00)))
                 .lineToLinearHeading(new Pose2d(30.75, 35.10, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(51, 29, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(52, 31, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence leftpark = drive.trajectorySequenceBuilder(leftpath.end())

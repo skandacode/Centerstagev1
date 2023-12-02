@@ -123,7 +123,7 @@ public class RRRedFar extends LinearOpMode {
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(2)
                 .state(AutoStates.FULLYOPEN)
-                .onEnter(()->lift.close())
+                .onEnter(()->lift.open())
                 .transitionTimed(2)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
@@ -142,7 +142,7 @@ public class RRRedFar extends LinearOpMode {
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(2)
                 .state(AutoStates.FULLYOPEN)
-                .onEnter(()->lift.close())
+                .onEnter(()->lift.open())
                 .transitionTimed(2)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
@@ -161,7 +161,7 @@ public class RRRedFar extends LinearOpMode {
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(2)
                 .state(AutoStates.FULLYOPEN)
-                .onEnter(()->lift.close())
+                .onEnter(()->lift.open())
                 .transitionTimed(2)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
