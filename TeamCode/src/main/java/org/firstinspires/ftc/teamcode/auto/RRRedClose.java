@@ -87,7 +87,7 @@ public class RRRedClose extends LinearOpMode {
                 .splineTo(new Vector2d(6, -37), Math.toRadians(360.0-194.93))
                 .lineToLinearHeading(new Pose2d(31.45, -35.05, Math.toRadians(180.00)))
                 .lineToLinearHeading(new Pose2d(30.75, -35.10, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(55, -29, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(55, -28, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence rightpark = drive.trajectorySequenceBuilder(rightpath.end())
@@ -143,7 +143,7 @@ public class RRRedClose extends LinearOpMode {
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(2)
                 .state(AutoStates.FULLYOPEN)
-                .onEnter(()->lift.close())
+                .onEnter(()->lift.open())
                 .transitionTimed(2)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
@@ -167,7 +167,7 @@ public class RRRedClose extends LinearOpMode {
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(2)
                 .state(AutoStates.FULLYOPEN)
-                .onEnter(()->lift.close())
+                .onEnter(()->lift.open())
                 .transitionTimed(2)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{

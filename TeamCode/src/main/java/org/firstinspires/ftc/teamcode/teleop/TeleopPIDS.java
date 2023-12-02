@@ -81,11 +81,11 @@ public class TeleopPIDS extends LinearOpMode {
             }
 
             if (gamepad2.right_trigger>0.3) {
-                lift.setTarget(800);
+                lift.setTarget(900);
                 lift.update();
                 telemetry.addLine("going up with pids");
             }else if (gamepad2.x){
-                lift.setTarget(570);
+                lift.setTarget(670);
                 lift.update();
                 telemetry.addLine("going up with pids");
             }else{
