@@ -74,20 +74,20 @@ public class RRRedClose extends LinearOpMode {
         TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(10, -65.18, Math.toRadians(90)))
                 .lineTo(new Vector2d(21, -40))
                 .lineTo(new Vector2d(24, -54))
-                .lineToLinearHeading(new Pose2d(55, -44, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(52, -43, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(10, -65.18, Math.toRadians(90)))
                 .lineTo(new Vector2d(10, -35))
                 .lineTo(new Vector2d(20.70, -48.03))
-                .lineToLinearHeading(new Pose2d(55, -36, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(52, -38, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(10, -65.18, Math.toRadians(90)))
                 .splineTo(new Vector2d(6, -37), Math.toRadians(360.0-194.93))
                 .lineToLinearHeading(new Pose2d(31.45, -35.05, Math.toRadians(180.00)))
                 .lineToLinearHeading(new Pose2d(30.75, -35.10, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(55, -28, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(52, -30, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence rightpark = drive.trajectorySequenceBuilder(rightpath.end())

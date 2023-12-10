@@ -77,8 +77,8 @@ public class RRRedFar extends LinearOpMode {
                 .lineToSplineHeading(new Pose2d(-52, -15, Math.toRadians(-7.00)))
                 .lineToLinearHeading(new Pose2d(20, -25, Math.toRadians(-10.00)))
                 .lineToLinearHeading(new Pose2d(43, -25, Math.toRadians(-9.00)))
-                .lineToLinearHeading(new Pose2d(43, -65, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(55, -65, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(43, -56, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(55, -56, Math.toRadians(0)))
                 .build();
 
 
@@ -88,10 +88,10 @@ public class RRRedFar extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(-36, -49, Math.toRadians(90.00)))
                 .lineToLinearHeading(new Pose2d(-53, -50, Math.toRadians(90.00)))
                 .turn(Math.toRadians(-90))
-                .lineToSplineHeading(new Pose2d(-45, -15, Math.toRadians(-7.00)))
-                .lineToLinearHeading(new Pose2d(35, -30, Math.toRadians(-7.00)))
-                .lineToLinearHeading(new Pose2d(35, -59, Math.toRadians(-7.00)))
-                .lineToLinearHeading(new Pose2d(55, -59, Math.toRadians(-7.00)))
+                .lineToSplineHeading(new Pose2d(-45, -15, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(35, -30, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(35, -47, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(55, -47, Math.toRadians(0)))
                 .build();
 
 

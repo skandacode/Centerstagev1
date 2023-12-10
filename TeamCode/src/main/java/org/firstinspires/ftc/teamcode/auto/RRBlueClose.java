@@ -73,7 +73,7 @@ public class RRBlueClose extends LinearOpMode {
         TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
                 .lineTo(new Vector2d(22, 40))
                 .lineTo(new Vector2d(24, 54))
-                .lineToLinearHeading(new Pose2d(52, 44, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(52, 41, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))

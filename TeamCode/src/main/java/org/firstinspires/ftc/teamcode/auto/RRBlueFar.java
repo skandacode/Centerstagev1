@@ -76,8 +76,8 @@ public class RRBlueFar extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(-43, 50, Math.toRadians(3.00)))
                 .lineToSplineHeading(new Pose2d(-42, 15, Math.toRadians(5.00)))
                 .lineToLinearHeading(new Pose2d(41, 25, Math.toRadians(5.00)))
-                .lineToLinearHeading(new Pose2d(41, 61, Math.toRadians(5.00)))
-                .lineToLinearHeading(new Pose2d(55, 63, Math.toRadians(3)))
+                .lineToLinearHeading(new Pose2d(41, 55, Math.toRadians(5.00)))
+                .lineToLinearHeading(new Pose2d(55, 55, Math.toRadians(3)))
                 .build();
 
 
@@ -88,9 +88,9 @@ public class RRBlueFar extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(-53, 50, Math.toRadians(270.00)))
                 .lineToLinearHeading(new Pose2d(-45, 15, Math.toRadians(270.00)))
                 .turn(Math.toRadians(100))
-                .lineToLinearHeading(new Pose2d(35, 20, Math.toRadians(3.00)))
-                .lineToLinearHeading(new Pose2d(35, 47, Math.toRadians(3.00)))
-                .lineToLinearHeading(new Pose2d(55, 47, Math.toRadians(3)))
+                .lineToLinearHeading(new Pose2d(35, 20, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(35, 47, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(55, 46, Math.toRadians(0)))
                 .build();
 
 
@@ -99,10 +99,10 @@ public class RRBlueFar extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(-32, 60, Math.toRadians(270.00)))
                 .lineToLinearHeading(new Pose2d(-35, 20, Math.toRadians(270.00)))
                 .turn(Math.toRadians(100))
-                .lineToLinearHeading(new Pose2d(0, 10, Math.toRadians(3.00)))
-                .lineToLinearHeading(new Pose2d(35, 20, Math.toRadians(3.00)))
-                .lineToLinearHeading(new Pose2d(35, 42, Math.toRadians(3.00)))
-                .lineToLinearHeading(new Pose2d(55, 42, Math.toRadians(3)))
+                .lineToLinearHeading(new Pose2d(0, 15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(35, 15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(35, 37, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(55, 37, Math.toRadians(0)))
                 .build();
 
         drive.setPoseEstimate(leftpath.start());
