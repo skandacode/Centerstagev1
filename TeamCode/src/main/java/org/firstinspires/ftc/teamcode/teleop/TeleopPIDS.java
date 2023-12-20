@@ -2,8 +2,11 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -11,6 +14,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 import java.util.List;
@@ -22,15 +26,16 @@ public class TeleopPIDS extends LinearOpMode {
     Servo deposit;
     Servo hangservo;
     Servo droneservo;
+    Servo yellowpixel;
     DcMotor hang;
     public static double intakespeed=0.4;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        Motor frontleft=new Motor(hardwareMap, "frontleft");
-        Motor frontright=new Motor(hardwareMap, "frontright");
-        Motor backleft=new Motor(hardwareMap, "backleft");
-        Motor backright=new Motor(hardwareMap, "backright");
+        MotorEx frontleft=new MotorEx(hardwareMap, "frontleft");
+        MotorEx frontright=new MotorEx(hardwareMap, "frontright");
+        MotorEx backleft=new MotorEx(hardwareMap, "backleft");
+        MotorEx backright=new MotorEx(hardwareMap, "backright");
 
         frontleft.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         frontright.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
@@ -44,12 +49,15 @@ public class TeleopPIDS extends LinearOpMode {
         hangservo=hardwareMap.servo.get("hangservo");
         droneservo=hardwareMap.servo.get("drone");
         hang=hardwareMap.dcMotor.get("hang");
+        yellowpixel=hardwareMap.servo.get("yellowpixel");
+
 
 
 
         List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
         hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL));
         FtcDashboard dashboard= FtcDashboard.getInstance();
+        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
         while (opModeInInit()){
             lift.setPower(-0.1);
@@ -112,6 +120,12 @@ public class TeleopPIDS extends LinearOpMode {
             }
             prev_open=current_open;
 
+            if (gamepad2.left_bumper){
+                yellowpixel.setPosition(0);
+            }else{
+                yellowpixel.setPosition(0.7);
+            }
+
             if (gamepad2.dpad_down){hangservo.setPosition(1);}//down
             if (gamepad2.dpad_right){hangservo.setPosition(0);}//up
             if (gamepad2.dpad_up){hangservo.setPosition(0.25);}//locks before hang
@@ -129,7 +143,12 @@ public class TeleopPIDS extends LinearOpMode {
             telemetry.addData("hz ", 1000000000 / (loop - loopTime));
             loopTime = loop;
             telemetry.update();
-
+            TelemetryPacket packet = new TelemetryPacket();
+            packet.put("frontleft current", frontleft.motorEx.getCurrent(CurrentUnit.AMPS));
+            packet.put("frontright current", frontright.motorEx.getCurrent(CurrentUnit.AMPS));
+            packet.put("backleft current", backleft.motorEx.getCurrent(CurrentUnit.AMPS));
+            packet.put("backright current", backright.motorEx.getCurrent(CurrentUnit.AMPS));
+            dashboard.sendTelemetryPacket(packet);
 
         }
     }
