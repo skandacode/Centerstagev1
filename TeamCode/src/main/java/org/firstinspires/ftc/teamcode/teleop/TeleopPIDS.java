@@ -139,16 +139,15 @@ public class TeleopPIDS extends LinearOpMode {
 
 
             double loop = System.nanoTime();
-            telemetry.addData("Lift sensor", lift.getDistance());
             telemetry.addData("hz ", 1000000000 / (loop - loopTime));
             loopTime = loop;
             telemetry.update();
-            TelemetryPacket packet = new TelemetryPacket();
+            /*TelemetryPacket packet = new TelemetryPacket();
             packet.put("frontleft current", frontleft.motorEx.getCurrent(CurrentUnit.AMPS));
             packet.put("frontright current", frontright.motorEx.getCurrent(CurrentUnit.AMPS));
             packet.put("backleft current", backleft.motorEx.getCurrent(CurrentUnit.AMPS));
             packet.put("backright current", backright.motorEx.getCurrent(CurrentUnit.AMPS));
-            dashboard.sendTelemetryPacket(packet);
+            dashboard.sendTelemetryPacket(packet);*/
 
         }
     }
