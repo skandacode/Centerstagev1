@@ -93,7 +93,8 @@ public class SampleMecanumDrive extends MecanumDrive {
         }
 
         // TODO: adjust the names of the following hardware devices to match your configuration
-
+        //this is relative to the back of the robot
+        //backright becomes frontleft after a 180 degree rotation
         leftFront = hardwareMap.get(DcMotorEx.class, "backright");
         leftRear = hardwareMap.get(DcMotorEx.class, "frontright");
         rightRear = hardwareMap.get(DcMotorEx.class, "frontleft");
