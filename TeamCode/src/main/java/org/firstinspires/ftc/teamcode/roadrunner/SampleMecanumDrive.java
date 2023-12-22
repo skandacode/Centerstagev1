@@ -56,7 +56,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(8, 0, 0);
     public static PIDCoefficients HEADING_PID = new PIDCoefficients(8, 0, 0);
 
-    public static double LATERAL_MULTIPLIER = 1;
+    public static double LATERAL_MULTIPLIER = 1.01010101;
 
     public static double VX_WEIGHT = 1;
     public static double VY_WEIGHT = 1;
@@ -93,7 +93,8 @@ public class SampleMecanumDrive extends MecanumDrive {
         }
 
         // TODO: adjust the names of the following hardware devices to match your configuration
-
+        //this is relative to the back of the robot
+        //backright becomes frontleft after a 180 degree rotation
         leftFront = hardwareMap.get(DcMotorEx.class, "backright");
         leftRear = hardwareMap.get(DcMotorEx.class, "frontright");
         rightRear = hardwareMap.get(DcMotorEx.class, "frontleft");

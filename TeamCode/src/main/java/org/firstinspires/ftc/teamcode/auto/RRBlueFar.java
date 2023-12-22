@@ -73,11 +73,11 @@ public class RRBlueFar extends LinearOpMode {
         TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(-34, 67, Math.toRadians(270)))
                 .lineToLinearHeading(new Pose2d(-48.93, 34.21, Math.toRadians(0.00)))
                 .forward(18)
-                .lineToLinearHeading(new Pose2d(-43, 50, Math.toRadians(3.00)))
-                .lineToSplineHeading(new Pose2d(-42, 15, Math.toRadians(5.00)))
-                .lineToLinearHeading(new Pose2d(41, 25, Math.toRadians(5.00)))
-                .lineToLinearHeading(new Pose2d(41, 55, Math.toRadians(5.00)))
-                .lineToLinearHeading(new Pose2d(55, 55, Math.toRadians(3)))
+                .lineToLinearHeading(new Pose2d(-43, 50, Math.toRadians(0.00)))
+                .lineToSplineHeading(new Pose2d(-42, 15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(41, 25, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(41, 55, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(55, 55, Math.toRadians(0)))
                 .build();
 
 

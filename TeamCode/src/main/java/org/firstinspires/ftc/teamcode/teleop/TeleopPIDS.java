@@ -28,7 +28,11 @@ public class TeleopPIDS extends LinearOpMode {
     Servo droneservo;
     Servo yellowpixel;
     DcMotor hang;
-    public static double intakespeed=0.4;
+    Servo intakeheights;
+    public static double intakespeed=0.35;
+    public static double intake_heights_down=0.4;
+    public static double intake_heights_up=0.02;
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -50,9 +54,7 @@ public class TeleopPIDS extends LinearOpMode {
         droneservo=hardwareMap.servo.get("drone");
         hang=hardwareMap.dcMotor.get("hang");
         yellowpixel=hardwareMap.servo.get("yellowpixel");
-
-
-
+        intakeheights=hardwareMap.servo.get("intakeheights");
 
         List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
         hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL));
