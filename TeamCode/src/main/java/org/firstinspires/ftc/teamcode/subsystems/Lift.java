@@ -16,6 +16,7 @@ public class Lift {
     Motor lift1;
     Motor lift2;
     Servo deposit;
+    Servo yellowpixel;
     RevColorSensorV3 liftend;
 
     public static double kP=0.0025;
@@ -30,6 +31,7 @@ public class Lift {
         lift2=new Motor(hardwareMap, "outtake2", Motor.GoBILDA.RPM_1150);
         deposit=hardwareMap.servo.get("deposit");
         liftend=(RevColorSensorV3) hardwareMap.colorSensor.get("liftend");
+        yellowpixel=hardwareMap.servo.get("yellowpixel");
 
         lift2.setInverted(true);
 
@@ -76,5 +78,11 @@ public class Lift {
     }
     public double getSetPoint(){
         return liftController.getSetPoint();
+    }
+    public void retractYellow(){
+        yellowpixel.setPosition(0.7);
+    }
+    public void extendYellow(){
+        yellowpixel.setPosition(0);
     }
 }

@@ -26,7 +26,6 @@ public class TeleopPIDS extends LinearOpMode {
     Servo deposit;
     Servo hangservo;
     Servo droneservo;
-    Servo yellowpixel;
     DcMotor hang;
     Servo intakeheights;
     public static double intakespeed=0.35;
@@ -53,7 +52,6 @@ public class TeleopPIDS extends LinearOpMode {
         hangservo=hardwareMap.servo.get("hangservo");
         droneservo=hardwareMap.servo.get("drone");
         hang=hardwareMap.dcMotor.get("hang");
-        yellowpixel=hardwareMap.servo.get("yellowpixel");
         intakeheights=hardwareMap.servo.get("intakeheights");
 
         List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
@@ -123,9 +121,9 @@ public class TeleopPIDS extends LinearOpMode {
             prev_open=current_open;
 
             if (gamepad2.left_bumper){
-                yellowpixel.setPosition(0);
+                lift.extendYellow();
             }else{
-                yellowpixel.setPosition(0.7);
+                lift.retractYellow();
             }
 
             if (gamepad2.dpad_down){hangservo.setPosition(1);}//down
