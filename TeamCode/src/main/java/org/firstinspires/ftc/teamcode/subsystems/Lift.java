@@ -85,4 +85,8 @@ public class Lift {
     public void extendYellow(){
         yellowpixel.setPosition(0);
     }
+    public void halfextendYellow(){
+        yellowpixel.setPosition(0.35);
+    }
+
 }
