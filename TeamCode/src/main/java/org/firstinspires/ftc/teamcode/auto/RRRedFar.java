@@ -201,7 +201,14 @@ public class RRRedFar extends LinearOpMode {
         }
         waitForStart();
 
-        webcam.closeCameraDevice();
+        webcam.closeCameraDeviceAsync(new OpenCvCamera.AsyncCameraCloseListener()
+        {
+            @Override
+            public void onClose() {
+
+            }
+        });
+
 
         double loopTime=0.0;
 
