@@ -28,7 +28,7 @@ public class TeleopPIDS extends LinearOpMode {
     Servo droneservo;
     DcMotor hang;
     Servo intakeheights;
-    public static double intakespeed=0.35;
+    public static double intakespeed=0.45;
     public static double intake_heights_down=0.4;
     public static double intake_heights_up=0.02;
 
