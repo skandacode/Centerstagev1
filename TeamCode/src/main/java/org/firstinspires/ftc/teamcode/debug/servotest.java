@@ -14,10 +14,13 @@ public class servotest extends LinearOpMode {
     Servo droneservo;
     DcMotor hang;
     Servo yellowpixel;
+    Servo intakeheights;
 
     public static double hangpos=0;
     public static double yellowpos=0;
     public static double dronepos=0;
+    public static double intakeheight=0;
+
 
 
     @Override
@@ -27,6 +30,7 @@ public class servotest extends LinearOpMode {
         droneservo=hardwareMap.servo.get("drone");
         yellowpixel=hardwareMap.servo.get("yellowpixel");
         hang=hardwareMap.dcMotor.get("hang");
+        intakeheights=hardwareMap.servo.get("intakeheights");
 
         waitForStart();
         while (opModeIsActive()){
@@ -34,6 +38,7 @@ public class servotest extends LinearOpMode {
             droneservo.setPosition(dronepos);
             hang.setPower(gamepad1.right_trigger-gamepad1.left_trigger);
             yellowpixel.setPosition(yellowpos);
+            intakeheights.setPosition(intakeheight);
         }
     }
 }
