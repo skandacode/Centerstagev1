@@ -42,9 +42,17 @@ public class Lift {
         liftController.setSetPoint(setPoint);
     }
     public void update(){
-        liftController.setPIDF(kP, 0, kD, 0);
-        double power = liftController.calculate(lift1.getCurrentPosition());
-        liftMotors.set(power+kF);
+        if (liftController.getSetPoint()==0){
+            if (this.is_down()){
+                this.setPower(0);
+            }else{
+                this.setPower(-0.6);
+            }
+        }else{
+            liftController.setPIDF(kP, 0, kD, 0);
+            double power = liftController.calculate(lift1.getCurrentPosition());
+            this.setPower(power+kF);
+        }
     }
     public int getEncoderPos(){
         return lift1.getCurrentPosition();

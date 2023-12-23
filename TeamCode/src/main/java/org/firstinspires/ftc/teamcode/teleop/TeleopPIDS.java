@@ -5,6 +5,9 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.arcrobotics.ftclib.gamepad.TriggerReader;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.hardware.lynx.LynxModule;
@@ -31,7 +34,7 @@ public class TeleopPIDS extends LinearOpMode {
     public static double intakespeed=0.45;
     public static double intake_heights_down=0.4;
     public static double intake_heights_up=0.02;
-
+    public static int stepSize=150;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -58,6 +61,17 @@ public class TeleopPIDS extends LinearOpMode {
         hubs.forEach(hub -> hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL));
         FtcDashboard dashboard= FtcDashboard.getInstance();
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+        GamepadEx game2 = new GamepadEx(gamepad2);
+        int lift_height=0;
+
+        TriggerReader rightTriggerReader = new TriggerReader(
+                game2, GamepadKeys.Trigger.RIGHT_TRIGGER
+        );
+        TriggerReader leftTriggerReader = new TriggerReader(
+                game2, GamepadKeys.Trigger.LEFT_TRIGGER
+        );
+
+
 
         while (opModeInInit()){
             lift.setPower(-0.1);
@@ -71,7 +85,8 @@ public class TeleopPIDS extends LinearOpMode {
 
         while (opModeIsActive()) {
             hubs.forEach(LynxModule::clearBulkCache);
-
+            leftTriggerReader.readValue();
+            rightTriggerReader.readValue();
             //double heading = drivetrain.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
 
             if (gamepad1.right_bumper || gamepad2.a || gamepad2.right_trigger>0.5){
@@ -88,24 +103,25 @@ public class TeleopPIDS extends LinearOpMode {
                 intake.set(0);
             }
 
-            if (gamepad2.right_trigger>0.3) {
-                lift.setTarget(1000);
-                lift.update();
-                telemetry.addLine("going up with pids");
-            }else if (gamepad2.x){
-                lift.setTarget(670);
-                lift.update();
-                telemetry.addLine("going up with pids");
-            }else{
-                if (lift.is_down()){
-                    lift.setPower(0);
-                    telemetry.addLine("all the way down");
-                }else{
-                    lift.setPower(-0.6);
-                    telemetry.addLine("going down");
+            if (rightTriggerReader.wasJustPressed()){
+                lift_height=lift_height+stepSize;
+                if (lift_height>800){
+                    lift_height=0;
+                }
+
+            }
+            if (leftTriggerReader.wasJustPressed()){
+                lift_height=lift_height-stepSize;
+                if (lift_height<0){
+                    lift_height=800;
                 }
             }
-            boolean current_open=gamepad2.right_bumper && (gamepad2.right_trigger>0.3|| gamepad2.x);
+            if (gamepad2.touchpad){
+                lift_height=0;
+            }
+            lift.setTarget(lift_height);
+            lift.update();
+            boolean current_open=gamepad2.right_bumper && !lift.is_down();
             if (current_open){
                 if (!prev_open) {//first time it is opened
                     timer.reset();
