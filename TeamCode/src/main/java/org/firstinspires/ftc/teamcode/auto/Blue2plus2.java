@@ -51,7 +51,6 @@ public class Blue2plus2 extends LinearOpMode {
         HALFOPEN2,
         FULLYOPEN2,
         RETRACT2,
-        PARK
     }
 
     public static PropPosition randomization=PropPosition.NONE;
@@ -111,13 +110,13 @@ public class Blue2plus2 extends LinearOpMode {
                 .build();
 
         TrajectorySequence leftcycle = drive.trajectorySequenceBuilder(leftpath.end())
-                .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(180.00)))
+                .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intake.set(intakespeed);
                     intakeheights.setPosition(intake_heights_up);
                 })
-                .lineToLinearHeading(new Pose2d(-62.73, 11.64, Math.toRadians(180.00)))
-                .lineToLinearHeading(new Pose2d(-57.81, 11.83, Math.toRadians(180.00)))
+                .lineToLinearHeading(new Pose2d(-62.73, 11.64, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-57.81, 11.83, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intakeheights.setPosition(intake_heights_down);
                 })
@@ -125,20 +124,20 @@ public class Blue2plus2 extends LinearOpMode {
                 .UNSTABLE_addDisplacementMarkerOffset(3, () -> {
                     intake.set(intakespeed*-1);
                 })
-                .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(180.00)))
+                .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intake.set(0);
                 })
-                .lineToLinearHeading(new Pose2d(50.81, 36.61, Math.toRadians(180.00)))
+                .lineToLinearHeading(new Pose2d(50.81, 36.61, Math.toRadians(0.00)))
                 .build();
         TrajectorySequence middlecycle = drive.trajectorySequenceBuilder(middlepath.end())
-                .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(180.00)))
+                .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intake.set(intakespeed);
                     intakeheights.setPosition(intake_heights_up);
                 })
-                .lineToLinearHeading(new Pose2d(-62.73, 11.64, Math.toRadians(180.00)))
-                .lineToLinearHeading(new Pose2d(-57.81, 11.83, Math.toRadians(180.00)))
+                .lineToLinearHeading(new Pose2d(-62.73, 11.64, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-57.81, 11.83, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intakeheights.setPosition(intake_heights_down);
                 })
@@ -146,20 +145,20 @@ public class Blue2plus2 extends LinearOpMode {
                 .UNSTABLE_addDisplacementMarkerOffset(3, () -> {
                     intake.set(intakespeed*-1);
                 })
-                .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(180.00)))
+                .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intake.set(0);
                 })
-                .lineToLinearHeading(new Pose2d(50.81, 36.61, Math.toRadians(180.00)))
+                .lineToLinearHeading(new Pose2d(50.81, 36.61, Math.toRadians(0.00)))
                 .build();
         TrajectorySequence rightcycle = drive.trajectorySequenceBuilder(rightpath.end())
-                .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(180.00)))
+                .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intake.set(intakespeed);
                     intakeheights.setPosition(intake_heights_up);
                 })
-                .lineToLinearHeading(new Pose2d(-62.73, 11.64, Math.toRadians(180.00)))
-                .lineToLinearHeading(new Pose2d(-57.81, 11.83, Math.toRadians(180.00)))
+                .lineToLinearHeading(new Pose2d(-62.73, 11.64, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-57.81, 11.83, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intakeheights.setPosition(intake_heights_down);
                 })
@@ -167,20 +166,13 @@ public class Blue2plus2 extends LinearOpMode {
                 .UNSTABLE_addDisplacementMarkerOffset(3, () -> {
                     intake.set(intakespeed*-1);
                 })
-                .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(180.00)))
+                .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intake.set(0);
                 })
-                .lineToLinearHeading(new Pose2d(50.81, 36.61, Math.toRadians(180.00)))
+                .lineToLinearHeading(new Pose2d(50.81, 36.61, Math.toRadians(0.00)))
                 .build();
 
-
-
-        TrajectorySequence park = drive.trajectorySequenceBuilder(leftcycle.end())
-                .lineToLinearHeading(new Pose2d(30, 29, Math.toRadians(0.00)))
-                .lineTo(new Vector2d(30, 60.88))
-                .lineTo(new Vector2d(62.27, 60.88))
-                .build();
 
 
 
@@ -195,7 +187,7 @@ public class Blue2plus2 extends LinearOpMode {
                 .transition(() -> lift.getEncoderPos()>400)
                 .state(AutoStates.HALFOPEN)
                 .onEnter(() -> lift.half_open())
-                .transitionTimed(2)
+                .transitionTimed(1)
                 .state(AutoStates.FULLYOPEN)
                 .onEnter(()->lift.open())
                 .transitionTimed(2)
@@ -212,7 +204,7 @@ public class Blue2plus2 extends LinearOpMode {
                 .transition(() -> lift.getEncoderPos()>600)
                 .state(AutoStates.HALFOPEN2)
                 .onEnter(() -> lift.half_open())
-                .transitionTimed(0.5)
+                .transitionTimed(1)
                 .state(AutoStates.FULLYOPEN2)
                 .onEnter(()->lift.open())
                 .transitionTimed(2)
@@ -220,11 +212,6 @@ public class Blue2plus2 extends LinearOpMode {
                 .onEnter(()->{
                     lift.setTarget(-50);
                     lift.close();
-                }).transition(()->lift.is_down())
-                .state(AutoStates.PARK)
-                .onEnter(()->{
-                    drive.followTrajectorySequenceAsync(park);
-                    lift.setTarget(0);
                 })
                 .build();
         StateMachine middlemachine = new StateMachineBuilder()
@@ -261,11 +248,6 @@ public class Blue2plus2 extends LinearOpMode {
                 .onEnter(()->{
                     lift.setTarget(-50);
                     lift.close();
-                }).transition(()->lift.is_down())
-                .state(AutoStates.PARK)
-                .onEnter(()->{
-                    drive.followTrajectorySequenceAsync(park);
-                    lift.setTarget(0);
                 })
                 .build();
         StateMachine rightmachine = new StateMachineBuilder()
@@ -302,11 +284,6 @@ public class Blue2plus2 extends LinearOpMode {
                 .onEnter(()->{
                     lift.setTarget(-50);
                     lift.close();
-                }).transition(()->lift.is_down())
-                .state(AutoStates.PARK)
-                .onEnter(()->{
-                    drive.followTrajectorySequenceAsync(park);
-                    lift.setTarget(0);
                 })
                 .build();
 
