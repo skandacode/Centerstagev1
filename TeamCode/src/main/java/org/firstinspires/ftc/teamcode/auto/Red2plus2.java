@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.auto;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
@@ -17,6 +16,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.vision.BluePipeline;
+import org.firstinspires.ftc.teamcode.vision.RedPipeline;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -24,10 +24,8 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 import java.util.List;
 import java.util.Objects;
-
 @Autonomous
-@Config
-public class Blue2plus2 extends LinearOpMode {
+public class Red2plus2 extends LinearOpMode {
 
     Lift lift = new Lift();
     Motor intake;
@@ -35,11 +33,8 @@ public class Blue2plus2 extends LinearOpMode {
     public static double intake_heights_down=0.4;
     public static double intake_heights_up=0.015;
     public static double intakespeed=0.53;
-
-
     OpenCvWebcam webcam;
     public static String ObjectDirection;
-
     enum AutoStates{
         TOBACKBOARD,
         LIFT,
@@ -52,6 +47,7 @@ public class Blue2plus2 extends LinearOpMode {
         FULLYOPEN2,
         RETRACT2,
     }
+
 
     public static PropPosition randomization=PropPosition.NONE;
     @Override
@@ -67,7 +63,7 @@ public class Blue2plus2 extends LinearOpMode {
                 WebcamName.class, "Webcam 1"), cameraMonitorViewId
         );
 
-        BluePipeline pipeline = new BluePipeline(telemetry, ObjectDirection);
+        RedPipeline pipeline = new RedPipeline(telemetry, ObjectDirection);
         webcam.setPipeline(pipeline);
 
         webcam.setMillisecondsPermissionTimeout(5000); // Timeout for obtaining permission is configurable. Set before opening.
@@ -81,41 +77,39 @@ public class Blue2plus2 extends LinearOpMode {
         });
 
         lift.init(hardwareMap);
-        intakeheights=hardwareMap.servo.get("intakeheights");
-        intake=new Motor(hardwareMap, "intake", Motor.GoBILDA.RPM_1620);
-
 
         FtcDashboard dashboard= FtcDashboard.getInstance();
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
-                .lineTo(new Vector2d(22, 40))
-                .lineTo(new Vector2d(24, 54))
-                .lineToLinearHeading(new Pose2d(50, 44, Math.toRadians(0)))
+        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(10, -65.18, Math.toRadians(90)))
+                .lineTo(new Vector2d(21, -40))
+                .lineTo(new Vector2d(24, -54))
+                .lineToLinearHeading(new Pose2d(52, -43, Math.toRadians(0)))
                 .build();
 
-        TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
-                .lineTo(new Vector2d(10, 35))
-                .lineTo(new Vector2d(20.70, 48.03))
-                .lineToLinearHeading(new Pose2d(50, 38, Math.toRadians(0)))
+        TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(10, -65.18, Math.toRadians(90)))
+                .lineTo(new Vector2d(10, -35))
+                .lineTo(new Vector2d(20.70, -48.03))
+                .lineToLinearHeading(new Pose2d(52, -38, Math.toRadians(0)))
                 .build();
 
-        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
-                .splineTo(new Vector2d(6, 37), Math.toRadians(194.93))
-                .lineToLinearHeading(new Pose2d(31.45, 35.05, Math.toRadians(180.00)))
-                .lineToLinearHeading(new Pose2d(30.75, 35.10, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(50, 31, Math.toRadians(0)))
+        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(10, -65.18, Math.toRadians(90)))
+                .splineTo(new Vector2d(6, -37), Math.toRadians(360.0-194.93))
+                .lineToLinearHeading(new Pose2d(31.45, -35.05, Math.toRadians(180.00)))
+                .lineToLinearHeading(new Pose2d(30.75, -35.10, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(52, -30, Math.toRadians(0)))
                 .build();
 
-        TrajectorySequence cycle = drive.trajectorySequenceBuilder(new Pose2d(40, 36, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(0.00)))
+
+        TrajectorySequence cycle = drive.trajectorySequenceBuilder(new Pose2d(40, -36, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(33.78, -12.58, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intake.set(intakespeed);
                     intakeheights.setPosition(intake_heights_up);
                 })
-                .lineToLinearHeading(new Pose2d(-59, 16, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(-56.6, 16, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-59, -16, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-56.6, -16, Math.toRadians(0.00)))
                 .addTemporalMarker(() -> {
                     intakeheights.setPosition(intake_heights_down);
                     intake.set(intakespeed*0.8);
@@ -124,12 +118,136 @@ public class Blue2plus2 extends LinearOpMode {
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
                     intake.set(intakespeed*-1);
                 })
-                .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(33.78, -12.58, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intake.set(0);
                 })
-                .lineToLinearHeading(new Pose2d(47.5, 36, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(47.5, -36, Math.toRadians(0.00)))
                 .build();
+
+
+
+        drive.setPoseEstimate(rightpath.start());
+
+        StateMachine leftmachine = new StateMachineBuilder()
+                .state(Blue2plus2.AutoStates.TOBACKBOARD)
+                .onEnter(() -> drive.followTrajectorySequenceAsync(leftpath))
+                .transition(() -> !drive.isBusy())
+                .state(Blue2plus2.AutoStates.LIFT)
+                .onEnter(() -> lift.setTarget(450))
+                .transition(() -> lift.getEncoderPos()>400)
+                .state(Blue2plus2.AutoStates.HALFOPEN)
+                .onEnter(() -> lift.half_open())
+                .transitionTimed(1)
+                .state(Blue2plus2.AutoStates.FULLYOPEN)
+                .onEnter(()->lift.open())
+                .transitionTimed(1)
+                .state(Blue2plus2.AutoStates.RETRACT)
+                .onEnter(()->{
+                    lift.setTarget(-50);
+                    lift.close();
+                }).transition(()->lift.is_down())
+                .state(Blue2plus2.AutoStates.CYCLE)
+                .onEnter(()-> {
+                    drive.followTrajectorySequenceAsync(cycle);
+                    lift.setPower(0);
+                })
+                .transition(()->!drive.isBusy())
+                .state(Blue2plus2.AutoStates.LIFT2)
+                .onEnter(() -> lift.setTarget(650))
+                .transition(() -> lift.getEncoderPos()>600)
+                .state(Blue2plus2.AutoStates.HALFOPEN2)
+                .onEnter(() -> lift.half_open())
+                .transitionTimed(0.5)
+                .state(Blue2plus2.AutoStates.FULLYOPEN2)
+                .onEnter(()->lift.open())
+                .transitionTimed(2)
+                .state(Blue2plus2.AutoStates.RETRACT2)
+                .onEnter(()->{
+                    lift.setTarget(-50);
+                    lift.close();
+                })
+                .build();
+        StateMachine middlemachine = new StateMachineBuilder()
+                .state(Blue2plus2.AutoStates.TOBACKBOARD)
+                .onEnter(() -> drive.followTrajectorySequenceAsync(middlepath))
+                .transition(() -> !drive.isBusy())
+                .state(Blue2plus2.AutoStates.LIFT)
+                .onEnter(() -> lift.setTarget(450))
+                .transition(() -> lift.getEncoderPos()>400)
+                .state(Blue2plus2.AutoStates.HALFOPEN)
+                .onEnter(() -> lift.half_open())
+                .transitionTimed(1)
+                .state(Blue2plus2.AutoStates.FULLYOPEN)
+                .onEnter(()->lift.open())
+                .transitionTimed(1)
+                .state(Blue2plus2.AutoStates.RETRACT)
+                .onEnter(()->{
+                    lift.setTarget(-50);
+                    lift.close();
+                }).transition(()->lift.is_down())
+                .state(Blue2plus2.AutoStates.CYCLE)
+                .onEnter(()-> {
+                    drive.followTrajectorySequenceAsync(cycle);
+                    lift.setPower(0);
+                })
+                .transition(()->!drive.isBusy())
+                .state(Blue2plus2.AutoStates.LIFT2)
+                .onEnter(() -> lift.setTarget(650))
+                .transition(() -> lift.getEncoderPos()>600)
+                .state(Blue2plus2.AutoStates.HALFOPEN2)
+                .onEnter(() -> lift.half_open())
+                .transitionTimed(0.5)
+                .state(Blue2plus2.AutoStates.FULLYOPEN2)
+                .onEnter(()->lift.open())
+                .transitionTimed(2)
+                .state(Blue2plus2.AutoStates.RETRACT2)
+                .onEnter(()->{
+                    lift.setTarget(-50);
+                    lift.close();
+                })
+                .build();
+
+        StateMachine rightmachine = new StateMachineBuilder()
+                .state(Blue2plus2.AutoStates.TOBACKBOARD)
+                .onEnter(() -> drive.followTrajectorySequenceAsync(rightpath))
+                .transition(() -> !drive.isBusy())
+                .state(Blue2plus2.AutoStates.LIFT)
+                .onEnter(() -> lift.setTarget(450))
+                .transition(() -> lift.getEncoderPos()>400)
+                .state(Blue2plus2.AutoStates.HALFOPEN)
+                .onEnter(() -> lift.half_open())
+                .transitionTimed(1)
+                .state(Blue2plus2.AutoStates.FULLYOPEN)
+                .onEnter(()->lift.open())
+                .transitionTimed(1)
+                .state(Blue2plus2.AutoStates.RETRACT)
+                .onEnter(()->{
+                    lift.setTarget(-50);
+                    lift.close();
+                }).transition(()->lift.is_down())
+                .state(Blue2plus2.AutoStates.CYCLE)
+                .onEnter(()-> {
+                    drive.followTrajectorySequenceAsync(cycle);
+                    lift.setPower(0);
+                })
+                .transition(()->!drive.isBusy())
+                .state(Blue2plus2.AutoStates.LIFT2)
+                .onEnter(() -> lift.setTarget(650))
+                .transition(() -> lift.getEncoderPos()>600)
+                .state(Blue2plus2.AutoStates.HALFOPEN2)
+                .onEnter(() -> lift.half_open())
+                .transitionTimed(0.5)
+                .state(Blue2plus2.AutoStates.FULLYOPEN2)
+                .onEnter(()->lift.open())
+                .transitionTimed(2)
+                .state(Blue2plus2.AutoStates.RETRACT2)
+                .onEnter(()->{
+                    lift.setTarget(-50);
+                    lift.close();
+                })
+                .build();
+
 
 
 
@@ -144,34 +262,19 @@ public class Blue2plus2 extends LinearOpMode {
                 .transition(() -> lift.getEncoderPos()>400)
                 .state(AutoStates.HALFOPEN)
                 .onEnter(() -> lift.half_open())
-                .transitionTimed(1)
+                .transitionTimed(2)
                 .state(AutoStates.FULLYOPEN)
                 .onEnter(()->lift.open())
-                .transitionTimed(1)
+                .transitionTimed(2)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
                     lift.setTarget(-50);
                     lift.close();
                 }).transition(()->lift.is_down())
-                .state(AutoStates.CYCLE)
-                .onEnter(()-> {
-                    drive.followTrajectorySequenceAsync(cycle);
-                    lift.setPower(0);
-                })
-                .transition(()->!drive.isBusy())
-                .state(AutoStates.LIFT2)
-                .onEnter(() -> lift.setTarget(650))
-                .transition(() -> lift.getEncoderPos()>600)
-                .state(AutoStates.HALFOPEN2)
-                .onEnter(() -> lift.half_open())
-                .transitionTimed(0.5)
-                .state(AutoStates.FULLYOPEN2)
-                .onEnter(()->lift.open())
-                .transitionTimed(2)
-                .state(AutoStates.RETRACT2)
+                .state(AutoStates.PARK)
                 .onEnter(()->{
-                    lift.setTarget(-50);
-                    lift.close();
+                    drive.followTrajectorySequenceAsync(leftpark);
+                    lift.setTarget(0);
                 })
                 .build();
         StateMachine middlemachine = new StateMachineBuilder()
@@ -183,37 +286,21 @@ public class Blue2plus2 extends LinearOpMode {
                 .transition(() -> lift.getEncoderPos()>400)
                 .state(AutoStates.HALFOPEN)
                 .onEnter(() -> lift.half_open())
-                .transitionTimed(1)
+                .transitionTimed(2)
                 .state(AutoStates.FULLYOPEN)
                 .onEnter(()->lift.open())
-                .transitionTimed(1)
+                .transitionTimed(2)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
                     lift.setTarget(-50);
                     lift.close();
                 }).transition(()->lift.is_down())
-                .state(AutoStates.CYCLE)
-                .onEnter(()-> {
-                    drive.followTrajectorySequenceAsync(cycle);
-                    lift.setPower(0);
-                })
-                .transition(()->!drive.isBusy())
-                .state(AutoStates.LIFT2)
-                .onEnter(() -> lift.setTarget(650))
-                .transition(() -> lift.getEncoderPos()>600)
-                .state(AutoStates.HALFOPEN2)
-                .onEnter(() -> lift.half_open())
-                .transitionTimed(0.5)
-                .state(AutoStates.FULLYOPEN2)
-                .onEnter(()->lift.open())
-                .transitionTimed(2)
-                .state(AutoStates.RETRACT2)
+                .state(AutoStates.PARK)
                 .onEnter(()->{
-                    lift.setTarget(-50);
-                    lift.close();
+                    drive.followTrajectorySequenceAsync(middlepark);
+                    lift.setTarget(0);
                 })
                 .build();
-
         StateMachine rightmachine = new StateMachineBuilder()
                 .state(AutoStates.TOBACKBOARD)
                 .onEnter(() -> drive.followTrajectorySequenceAsync(rightpath))
@@ -223,34 +310,19 @@ public class Blue2plus2 extends LinearOpMode {
                 .transition(() -> lift.getEncoderPos()>400)
                 .state(AutoStates.HALFOPEN)
                 .onEnter(() -> lift.half_open())
-                .transitionTimed(1)
+                .transitionTimed(2)
                 .state(AutoStates.FULLYOPEN)
                 .onEnter(()->lift.open())
-                .transitionTimed(1)
+                .transitionTimed(2)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
                     lift.setTarget(-50);
                     lift.close();
                 }).transition(()->lift.is_down())
-                .state(AutoStates.CYCLE)
-                .onEnter(()-> {
-                    drive.followTrajectorySequenceAsync(cycle);
-                    lift.setPower(0);
-                })
-                .transition(()->!drive.isBusy())
-                .state(AutoStates.LIFT2)
-                .onEnter(() -> lift.setTarget(650))
-                .transition(() -> lift.getEncoderPos()>600)
-                .state(AutoStates.HALFOPEN2)
-                .onEnter(() -> lift.half_open())
-                .transitionTimed(0.5)
-                .state(AutoStates.FULLYOPEN2)
-                .onEnter(()->lift.open())
-                .transitionTimed(2)
-                .state(AutoStates.RETRACT2)
+                .state(AutoStates.PARK)
                 .onEnter(()->{
-                    lift.setTarget(-50);
-                    lift.close();
+                    drive.followTrajectorySequenceAsync(rightpark);
+                    lift.setTarget(0);
                 })
                 .build();
 
@@ -293,6 +365,7 @@ public class Blue2plus2 extends LinearOpMode {
 
             }
         });
+
 
         double loopTime=0.0;
 
