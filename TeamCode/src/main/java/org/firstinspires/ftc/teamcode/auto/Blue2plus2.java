@@ -101,11 +101,11 @@ public class Blue2plus2 extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(50, 38, Math.toRadians(0)))
                 .build();
 
-        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
+        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(10, 67, Math.toRadians(270.00)))
                 .splineTo(new Vector2d(6, 37), Math.toRadians(194.93))
-                .lineToLinearHeading(new Pose2d(31.45, 35.05, Math.toRadians(180.00)))
-                .lineToLinearHeading(new Pose2d(30.75, 35.10, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(50, 31, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(31.45, 37, Math.toRadians(180.00)))
+                .lineToLinearHeading(new Pose2d(30.75, 37, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(50, 32, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence cycle = drive.trajectorySequenceBuilder(new Pose2d(40, 36, Math.toRadians(0)))
@@ -133,7 +133,6 @@ public class Blue2plus2 extends LinearOpMode {
 
 
 
-        drive.setPoseEstimate(rightpath.start());
 
         StateMachine leftmachine = new StateMachineBuilder()
                 .state(AutoStates.TOBACKBOARD)
@@ -285,7 +284,15 @@ public class Blue2plus2 extends LinearOpMode {
             sleep(100);
         }
         waitForStart();
-
+        if (randomization==PropPosition.LEFT){
+            drive.setPoseEstimate(leftpath.start());
+        }
+        if (randomization==PropPosition.MIDDLE){
+            drive.setPoseEstimate(middlepath.start());
+        }
+        if (randomization==PropPosition.RIGHT){
+            drive.setPoseEstimate(rightpath.start());
+        }
         webcam.closeCameraDeviceAsync(new OpenCvCamera.AsyncCameraCloseListener()
         {
             @Override
