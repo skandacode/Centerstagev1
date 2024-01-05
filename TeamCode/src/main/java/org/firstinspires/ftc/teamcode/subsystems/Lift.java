@@ -19,7 +19,7 @@ public class Lift {
     Servo yellowpixel;
     RevColorSensorV3 liftend;
 
-    public static double kP=0.0025;
+    public static double kP=0.003;
     public static double kD=0;
     public static double kF=0.11;
 

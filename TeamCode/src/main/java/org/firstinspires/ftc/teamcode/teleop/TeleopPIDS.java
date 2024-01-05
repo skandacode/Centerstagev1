@@ -31,7 +31,7 @@ public class TeleopPIDS extends LinearOpMode {
     Servo droneservo;
     DcMotor hang;
     Servo intakeheights;
-    public static double intakespeed=0.45;
+    public static double intakespeed=0.65;
     public static double intake_heights_down=0.4;
     public static double intake_heights_up=0.02;
     public static int stepSize=150;
@@ -71,7 +71,7 @@ public class TeleopPIDS extends LinearOpMode {
                 game2, GamepadKeys.Trigger.LEFT_TRIGGER
         );
 
-
+        intakeheights.setPosition(intake_heights_down);
 
         while (opModeInInit()){
             lift.setPower(-0.1);

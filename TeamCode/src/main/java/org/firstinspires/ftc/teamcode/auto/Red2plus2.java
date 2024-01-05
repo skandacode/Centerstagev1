@@ -34,7 +34,7 @@ public class Red2plus2 extends LinearOpMode {
     Servo intakeheights;
     public static double intake_heights_down=0.4;
     public static double intake_heights_up=0.018;
-    public static double intakespeed=0.53;
+    public static double intakespeed=0.6;
     OpenCvWebcam webcam;
     public static String ObjectDirection;
     enum AutoStates{
@@ -102,7 +102,7 @@ public class Red2plus2 extends LinearOpMode {
                 .splineTo(new Vector2d(6, -37), Math.toRadians(360.0-194.93))
                 .lineToLinearHeading(new Pose2d(31.45, -35.05, Math.toRadians(180.00)))
                 .lineToLinearHeading(new Pose2d(30.75, -35.10, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(50, -30, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(50, -32, Math.toRadians(0)))
                 .build();
 
 
@@ -112,8 +112,8 @@ public class Red2plus2 extends LinearOpMode {
                     intake.set(intakespeed);
                     intakeheights.setPosition(intake_heights_up);
                 })
-                .lineToLinearHeading(new Pose2d(-61, -19, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(-58, -19, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-61, -15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-58, -15, Math.toRadians(0.00)))
                 .addTemporalMarker(() -> {
                     intakeheights.setPosition(intake_heights_down);
                     intake.set(intakespeed*0.8);
@@ -138,8 +138,8 @@ public class Red2plus2 extends LinearOpMode {
                 .onEnter(() -> drive.followTrajectorySequenceAsync(leftpath))
                 .transition(() -> !drive.isBusy())
                 .state(Blue2plus2.AutoStates.LIFT)
-                .onEnter(() -> lift.setTarget(450))
-                .transition(() -> lift.getEncoderPos()>400)
+                .onEnter(() -> lift.setTarget(475))
+                .transition(() -> lift.getEncoderPos()>425)
                 .state(Blue2plus2.AutoStates.HALFOPEN)
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(1)
@@ -148,7 +148,7 @@ public class Red2plus2 extends LinearOpMode {
                 .transitionTimed(1)
                 .state(Blue2plus2.AutoStates.RETRACT)
                 .onEnter(()->{
-                    lift.setTarget(-50);
+                    lift.setTarget(0);
                     lift.close();
                 }).transition(()->lift.is_down())
                 .state(Blue2plus2.AutoStates.CYCLE)
@@ -168,7 +168,7 @@ public class Red2plus2 extends LinearOpMode {
                 .transitionTimed(2)
                 .state(Blue2plus2.AutoStates.RETRACT2)
                 .onEnter(()->{
-                    lift.setTarget(-50);
+                    lift.setTarget(0);
                     lift.close();
                 })
                 .build();
@@ -177,8 +177,8 @@ public class Red2plus2 extends LinearOpMode {
                 .onEnter(() -> drive.followTrajectorySequenceAsync(middlepath))
                 .transition(() -> !drive.isBusy())
                 .state(Blue2plus2.AutoStates.LIFT)
-                .onEnter(() -> lift.setTarget(450))
-                .transition(() -> lift.getEncoderPos()>400)
+                .onEnter(() -> lift.setTarget(475))
+                .transition(() -> lift.getEncoderPos()>425)
                 .state(Blue2plus2.AutoStates.HALFOPEN)
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(1)
@@ -187,7 +187,7 @@ public class Red2plus2 extends LinearOpMode {
                 .transitionTimed(1)
                 .state(Blue2plus2.AutoStates.RETRACT)
                 .onEnter(()->{
-                    lift.setTarget(-50);
+                    lift.setTarget(0);
                     lift.close();
                 }).transition(()->lift.is_down())
                 .state(Blue2plus2.AutoStates.CYCLE)
@@ -207,7 +207,7 @@ public class Red2plus2 extends LinearOpMode {
                 .transitionTimed(2)
                 .state(Blue2plus2.AutoStates.RETRACT2)
                 .onEnter(()->{
-                    lift.setTarget(-50);
+                    lift.setTarget(0);
                     lift.close();
                 })
                 .build();
@@ -217,8 +217,8 @@ public class Red2plus2 extends LinearOpMode {
                 .onEnter(() -> drive.followTrajectorySequenceAsync(rightpath))
                 .transition(() -> !drive.isBusy())
                 .state(Blue2plus2.AutoStates.LIFT)
-                .onEnter(() -> lift.setTarget(450))
-                .transition(() -> lift.getEncoderPos()>400)
+                .onEnter(() -> lift.setTarget(475))
+                .transition(() -> lift.getEncoderPos()>425)
                 .state(Blue2plus2.AutoStates.HALFOPEN)
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(1)
@@ -227,7 +227,7 @@ public class Red2plus2 extends LinearOpMode {
                 .transitionTimed(1)
                 .state(Blue2plus2.AutoStates.RETRACT)
                 .onEnter(()->{
-                    lift.setTarget(-50);
+                    lift.setTarget(0);
                     lift.close();
                 }).transition(()->lift.is_down())
                 .state(Blue2plus2.AutoStates.CYCLE)
@@ -247,7 +247,7 @@ public class Red2plus2 extends LinearOpMode {
                 .transitionTimed(2)
                 .state(Blue2plus2.AutoStates.RETRACT2)
                 .onEnter(()->{
-                    lift.setTarget(-50);
+                    lift.setTarget(0);
                     lift.close();
                 })
                 .build();
