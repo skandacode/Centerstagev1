@@ -33,7 +33,7 @@ public class Blue2plus2 extends LinearOpMode {
     Motor intake;
     Servo intakeheights;
     public static double intake_heights_down=0.4;
-    public static double intake_heights_up=0.015;
+    public static double intake_heights_up=0.013;
     public static double intakespeed=0.6;
 
 
@@ -114,15 +114,15 @@ public class Blue2plus2 extends LinearOpMode {
                     intake.set(intakespeed);
                     intakeheights.setPosition(intake_heights_up);
                 })
-                .lineToLinearHeading(new Pose2d(-59, 16, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(-56.6, 16, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-59, 17, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-56.6, 17, Math.toRadians(0.00)))
                 .addTemporalMarker(() -> {
                     intakeheights.setPosition(intake_heights_down);
                     intake.set(intakespeed*0.8);
                 })
                 .waitSeconds(2)
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
-                    intake.set(intakespeed*-1);
+                    intake.set(-1);
                 })
                 .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
