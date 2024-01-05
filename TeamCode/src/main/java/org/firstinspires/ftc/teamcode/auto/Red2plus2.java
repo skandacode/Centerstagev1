@@ -34,7 +34,7 @@ public class Red2plus2 extends LinearOpMode {
     Servo intakeheights;
     public static double intake_heights_down=0.4;
     public static double intake_heights_up=0.015;
-    public static double intakespeed=0.6;
+    public static double intakespeed=0.7;
     OpenCvWebcam webcam;
     public static String ObjectDirection;
     enum AutoStates{
@@ -116,7 +116,7 @@ public class Red2plus2 extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(-58, -15, Math.toRadians(0.00)))
                 .addTemporalMarker(() -> {
                     intakeheights.setPosition(intake_heights_down);
-                    intake.set(intakespeed*0.8);
+                    intake.set(intakespeed*0.7);
                 })
                 .waitSeconds(2)
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
