@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
 @Config
-@Disabled
 public class motorTest extends LinearOpMode {
     DcMotor frontleft;
     DcMotor frontright;
