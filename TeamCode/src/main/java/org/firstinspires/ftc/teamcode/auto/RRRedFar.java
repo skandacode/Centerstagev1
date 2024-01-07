@@ -77,8 +77,8 @@ public class RRRedFar extends LinearOpMode {
                 .lineToSplineHeading(new Pose2d(-52, -15, Math.toRadians(0.00)))
                 .lineToLinearHeading(new Pose2d(20, -25, Math.toRadians(0.00)))
                 .lineToLinearHeading(new Pose2d(43, -25, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(43, -56, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(54, -56, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(43, -53, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(53, -53, Math.toRadians(0)))
                 .build();
 
 
@@ -88,10 +88,10 @@ public class RRRedFar extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(-36, -49, Math.toRadians(90.00)))
                 .lineToLinearHeading(new Pose2d(-53, -50, Math.toRadians(90.00)))
                 .turn(Math.toRadians(-90))
-                .lineToSplineHeading(new Pose2d(-50, -15, Math.toRadians(0)))
+                .lineToSplineHeading(new Pose2d(-50, -20, Math.toRadians(0)))
                 .lineToLinearHeading(new Pose2d(35, -20, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(35, -47, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(54, -47, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(35, -45, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(53, -45, Math.toRadians(0)))
                 .build();
 
 
@@ -100,11 +100,11 @@ public class RRRedFar extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(-33, -60, Math.toRadians(90.00)))
                 .lineToLinearHeading(new Pose2d(-36, -20, Math.toRadians(90.00)))
                 .turn(Math.toRadians(-90))
-                .lineToSplineHeading(new Pose2d(-52, -15, Math.toRadians(-3.00)))
-                .lineToLinearHeading(new Pose2d(20, -15, Math.toRadians(-3.00)))
-                .lineToLinearHeading(new Pose2d(35, -30, Math.toRadians(-5.00)))
-                .lineToLinearHeading(new Pose2d(35, -38, Math.toRadians(-5.00)))
-                .lineToLinearHeading(new Pose2d(55, -38, Math.toRadians(0)))
+                .lineToSplineHeading(new Pose2d(-52, -15, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(20, -15, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(35, -30, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(35, -38, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(53, -38, Math.toRadians(0)))
                 .build();
 
         drive.setPoseEstimate(leftpath.start());
