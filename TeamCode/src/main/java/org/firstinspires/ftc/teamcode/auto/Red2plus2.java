@@ -98,11 +98,11 @@ public class Red2plus2 extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(50, -33, Math.toRadians(0)))
                 .build();
 
-        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(10, -65.18, Math.toRadians(90)))
-                .splineTo(new Vector2d(6, -37), Math.toRadians(360.0-194.93))
+        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(8, -65.18, Math.toRadians(90)))
+                .splineTo(new Vector2d(4, -37), Math.toRadians(360.0-194.93))
                 .lineToLinearHeading(new Pose2d(31.45, -35.05, Math.toRadians(180.00)))
                 .lineToLinearHeading(new Pose2d(30.75, -35.10, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(50, -32, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(48, -31, Math.toRadians(0)))
                 .build();
 
 
@@ -123,11 +123,11 @@ public class Red2plus2 extends LinearOpMode {
                     intake.set(-1);
                     intakeheights.setPosition(intake_heights_up);
                 })
-                .lineToLinearHeading(new Pose2d(30, -12, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(29, -12, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intake.set(0);
                 })
-                .lineToLinearHeading(new Pose2d(49, -36, Math.toRadians(2.00)))
+                .lineToLinearHeading(new Pose2d(48, -36, Math.toRadians(0.00)))
                 .build();
 
 

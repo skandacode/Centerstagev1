@@ -141,7 +141,7 @@ public class TeleopPIDS extends LinearOpMode {
             }else{
                 lift.retractYellow();
             }
-            if (gamepad2.options){
+            if (gamepad2.ps){
                 intakeheights.setPosition(intake_heights_up);
             }else{
                 intakeheights.setPosition(intake_heights_down);
