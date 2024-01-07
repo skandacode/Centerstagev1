@@ -58,7 +58,7 @@ public class Lift {
         return lift1.getCurrentPosition();
     }
     public void open(){
-        deposit.setPosition(0.52);
+        deposit.setPosition(0.53);
     }
     public void close(){
         deposit.setPosition(0.93);

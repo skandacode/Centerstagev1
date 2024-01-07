@@ -107,13 +107,13 @@ public class Red2plus2 extends LinearOpMode {
 
 
         TrajectorySequence cycle = drive.trajectorySequenceBuilder(new Pose2d(40, -36, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(30, -15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(30, -12, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intake.set(intakespeed);
                     intakeheights.setPosition(intake_heights_up);
                 })
-                .lineToLinearHeading(new Pose2d(-61, -15, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(-58, -15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-61, -14, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-58, -14, Math.toRadians(0.00)))
                 .addTemporalMarker(() -> {
                     intakeheights.setPosition(intake_heights_down);
                     intake.set(intakespeed*0.7);
@@ -121,8 +121,9 @@ public class Red2plus2 extends LinearOpMode {
                 .waitSeconds(2)
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
                     intake.set(-1);
+                    intakeheights.setPosition(intake_heights_up);
                 })
-                .lineToLinearHeading(new Pose2d(30, -13, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(30, -12, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intake.set(0);
                 })

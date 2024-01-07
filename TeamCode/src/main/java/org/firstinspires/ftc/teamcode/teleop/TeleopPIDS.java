@@ -105,7 +105,7 @@ public class TeleopPIDS extends LinearOpMode {
 
             if (rightTriggerReader.wasJustPressed()){
                 lift_height=lift_height+stepSize;
-                if (lift_height>800){
+                if (lift_height>1000){
                     lift_height=0;
                 }
 
@@ -113,7 +113,7 @@ public class TeleopPIDS extends LinearOpMode {
             if (leftTriggerReader.wasJustPressed()){
                 lift_height=lift_height-stepSize;
                 if (lift_height<0){
-                    lift_height=800;
+                    lift_height=1000;
                 }
             }
             if (gamepad2.touchpad){
@@ -141,7 +141,11 @@ public class TeleopPIDS extends LinearOpMode {
             }else{
                 lift.retractYellow();
             }
-
+            if (gamepad2.options){
+                intakeheights.setPosition(intake_heights_up);
+            }else{
+                intakeheights.setPosition(intake_heights_down);
+            }
             if (gamepad2.dpad_down){hangservo.setPosition(1);}//down
             if (gamepad2.dpad_right){hangservo.setPosition(0);}//up
             if (gamepad2.dpad_up){hangservo.setPosition(0.25);}//locks before hang
