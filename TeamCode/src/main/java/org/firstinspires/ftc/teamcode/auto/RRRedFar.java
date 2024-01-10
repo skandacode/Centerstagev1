@@ -78,7 +78,7 @@ public class RRRedFar extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(20, -25, Math.toRadians(0.00)))
                 .lineToLinearHeading(new Pose2d(43, -25, Math.toRadians(0.00)))
                 .lineToLinearHeading(new Pose2d(43, -53, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(53, -53, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(54, -53, Math.toRadians(0)))
                 .build();
 
 
@@ -91,7 +91,7 @@ public class RRRedFar extends LinearOpMode {
                 .lineToSplineHeading(new Pose2d(-50, -20, Math.toRadians(0)))
                 .lineToLinearHeading(new Pose2d(35, -20, Math.toRadians(0)))
                 .lineToLinearHeading(new Pose2d(35, -45, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(53, -45, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(54, -45, Math.toRadians(0)))
                 .build();
 
 
@@ -104,7 +104,7 @@ public class RRRedFar extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(20, -15, Math.toRadians(0)))
                 .lineToLinearHeading(new Pose2d(35, -30, Math.toRadians(0)))
                 .lineToLinearHeading(new Pose2d(35, -38, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(53, -38, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(54, -38, Math.toRadians(0)))
                 .build();
 
         drive.setPoseEstimate(leftpath.start());
