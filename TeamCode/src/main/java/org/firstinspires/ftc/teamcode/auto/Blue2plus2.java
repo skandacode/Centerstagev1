@@ -89,23 +89,23 @@ public class Blue2plus2 extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(11, 65.18, Math.toRadians(270.00)))
+        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(11, 64, Math.toRadians(270.00)))
                 .lineTo(new Vector2d(22, 40))
                 .lineTo(new Vector2d(24, 54))
-                .lineToLinearHeading(new Pose2d(51, 44, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(52, 44, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(10, 65.18, Math.toRadians(270.00)))
                 .lineTo(new Vector2d(10, 35))
                 .lineTo(new Vector2d(20.70, 48.03))
-                .lineToLinearHeading(new Pose2d(51, 38, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(52, 38, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(10, 67, Math.toRadians(270.00)))
                 .splineTo(new Vector2d(6, 37), Math.toRadians(194.93))
                 .lineToLinearHeading(new Pose2d(31.45, 37, Math.toRadians(180.00)))
                 .lineToLinearHeading(new Pose2d(30.75, 37, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(51, 35, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(52, 35, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence cycle = drive.trajectorySequenceBuilder(new Pose2d(40, 36, Math.toRadians(0)))
@@ -114,8 +114,8 @@ public class Blue2plus2 extends LinearOpMode {
                     intake.set(intakespeed);
                     intakeheights.setPosition(intake_heights_up);
                 })
-                .lineToLinearHeading(new Pose2d(-60, 15, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(-57.5, 15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-60, 16, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-57.5, 16, Math.toRadians(0.00)))
                 .addTemporalMarker(() -> {
                     intakeheights.setPosition(intake_heights_down);
                     intake.set(intakespeed*0.7);
@@ -129,7 +129,7 @@ public class Blue2plus2 extends LinearOpMode {
                 .addDisplacementMarker(() -> {
                     intake.set(0);
                 })
-                .lineToLinearHeading(new Pose2d(48.5, 36, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(50, 36, Math.toRadians(0.00)))
                 .build();
 
 
@@ -146,7 +146,7 @@ public class Blue2plus2 extends LinearOpMode {
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(1)
                 .state(AutoStates.FULLYOPEN)
-                .onEnter(()->lift.open())
+                .onEnter(()->lift.open_auto())
                 .transitionTimed(1)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
@@ -166,7 +166,7 @@ public class Blue2plus2 extends LinearOpMode {
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(0.5)
                 .state(AutoStates.FULLYOPEN2)
-                .onEnter(()->lift.open())
+                .onEnter(()->lift.open_auto())
                 .transitionTimed(2)
                 .state(AutoStates.RETRACT2)
                 .onEnter(()->{
@@ -185,7 +185,7 @@ public class Blue2plus2 extends LinearOpMode {
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(1)
                 .state(AutoStates.FULLYOPEN)
-                .onEnter(()->lift.open())
+                .onEnter(()->lift.open_auto())
                 .transitionTimed(1)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
@@ -205,7 +205,7 @@ public class Blue2plus2 extends LinearOpMode {
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(0.5)
                 .state(AutoStates.FULLYOPEN2)
-                .onEnter(()->lift.open())
+                .onEnter(()->lift.open_auto())
                 .transitionTimed(2)
                 .state(AutoStates.RETRACT2)
                 .onEnter(()->{
@@ -225,7 +225,7 @@ public class Blue2plus2 extends LinearOpMode {
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(1)
                 .state(AutoStates.FULLYOPEN)
-                .onEnter(()->lift.open())
+                .onEnter(()->lift.open_auto())
                 .transitionTimed(1)
                 .state(AutoStates.RETRACT)
                 .onEnter(()->{
@@ -245,7 +245,7 @@ public class Blue2plus2 extends LinearOpMode {
                 .onEnter(() -> lift.half_open())
                 .transitionTimed(0.5)
                 .state(AutoStates.FULLYOPEN2)
-                .onEnter(()->lift.open())
+                .onEnter(()->lift.open_auto())
                 .transitionTimed(2)
                 .state(AutoStates.RETRACT2)
                 .onEnter(()->{

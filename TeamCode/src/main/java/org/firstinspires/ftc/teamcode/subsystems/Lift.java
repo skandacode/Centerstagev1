@@ -60,6 +60,10 @@ public class Lift {
     public void open(){
         deposit.setPosition(0.53);
     }
+    public void open_auto(){
+        deposit.setPosition(0.53);
+    }
+
     public void close(){
         deposit.setPosition(0.93);
     }
