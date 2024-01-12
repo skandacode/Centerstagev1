@@ -105,7 +105,7 @@ public class Blue2plus2 extends LinearOpMode {
                 .splineTo(new Vector2d(6, 37), Math.toRadians(194.93))
                 .lineToLinearHeading(new Pose2d(31.45, 37, Math.toRadians(180.00)))
                 .lineToLinearHeading(new Pose2d(30.75, 37, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(52, 35, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(52, 33, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence cycle = drive.trajectorySequenceBuilder(new Pose2d(40, 36, Math.toRadians(0)))

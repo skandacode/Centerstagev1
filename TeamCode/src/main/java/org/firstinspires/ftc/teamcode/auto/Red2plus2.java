@@ -86,7 +86,7 @@ public class Red2plus2 extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(10, -67, Math.toRadians(90)))
+        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(10, -64, Math.toRadians(90)))
                 .lineTo(new Vector2d(21, -42))
                 .lineTo(new Vector2d(24, -54))
                 .lineToLinearHeading(new Pose2d(51, -43, Math.toRadians(0)))
@@ -98,11 +98,11 @@ public class Red2plus2 extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(51, -33, Math.toRadians(0)))
                 .build();
 
-        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(8, -65.18, Math.toRadians(90)))
+        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(8, -66, Math.toRadians(90)))
                 .splineTo(new Vector2d(4, -37), Math.toRadians(360.0-194.93))
                 .lineToLinearHeading(new Pose2d(31.45, -35.05, Math.toRadians(180.00)))
                 .lineToLinearHeading(new Pose2d(30.75, -35.10, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(49, -31, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(50, -31, Math.toRadians(0)))
                 .build();
 
 
