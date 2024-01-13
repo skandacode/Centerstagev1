@@ -86,7 +86,7 @@ public class Red2plus2 extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(10, -64, Math.toRadians(90)))
+        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(10, -62.5, Math.toRadians(90)))
                 .lineTo(new Vector2d(21, -42))
                 .lineTo(new Vector2d(24, -54))
                 .lineToLinearHeading(new Pose2d(51, -43, Math.toRadians(0)))
@@ -112,8 +112,8 @@ public class Red2plus2 extends LinearOpMode {
                     intake.set(intakespeed);
                     intakeheights.setPosition(intake_heights_up);
                 })
-                .lineToLinearHeading(new Pose2d(-61, -14, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(-58, -14, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-61, -13, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-58, -13, Math.toRadians(0.00)))
                 .addTemporalMarker(() -> {
                     intakeheights.setPosition(intake_heights_down);
                     intake.set(intakespeed*0.7);
