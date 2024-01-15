@@ -21,7 +21,7 @@ public class Lift {
 
     public static double kP=0.003;
     public static double kD=0;
-    public static double kF=0.11;
+    public static double kF=0.16;
 
     public static double down_cutoff=8;
     public PIDFController liftController=new PIDFController(kP, 0, kD, 0);
@@ -58,10 +58,10 @@ public class Lift {
         return lift1.getCurrentPosition();
     }
     public void open(){
-        deposit.setPosition(0.51);
+        deposit.setPosition(0.50);
     }
     public void open_auto(){
-        deposit.setPosition(0.51);
+        deposit.setPosition(0.50);
     }
 
     public void close(){
