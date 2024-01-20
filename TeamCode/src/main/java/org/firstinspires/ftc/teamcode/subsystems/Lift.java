@@ -58,17 +58,17 @@ public class Lift {
         return lift1.getCurrentPosition();
     }
     public void open(){
-        deposit.setPosition(0.50);
+        deposit.setPosition(0.55);
     }
     public void open_auto(){
-        deposit.setPosition(0.50);
+        deposit.setPosition(0.55);
     }
 
     public void close(){
         deposit.setPosition(0.93);
     }
     public void half_open(){
-        deposit.setPosition(0.59);
+        deposit.setPosition(0.63);
     }
     public void half_open_teleop(){
         deposit.setPosition(0.65);

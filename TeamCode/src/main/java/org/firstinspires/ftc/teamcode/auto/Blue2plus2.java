@@ -89,33 +89,33 @@ public class Blue2plus2 extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(11, 64, Math.toRadians(270.00)))
-                .lineTo(new Vector2d(22, 40))
-                .lineTo(new Vector2d(24, 54))
-                .lineToLinearHeading(new Pose2d(52, 44, Math.toRadians(0)))
+        TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(11, 66, Math.toRadians(270.00)))
+                .lineTo(new Vector2d(20, 42))
+                .lineTo(new Vector2d(24, 56))
+                .lineToLinearHeading(new Pose2d(50, 46, Math.toRadians(0)))
                 .build();
 
-        TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(12, 65.18, Math.toRadians(270.00)))
-                .lineTo(new Vector2d(12, 35))
-                .lineTo(new Vector2d(22.70, 48.03))
-                .lineToLinearHeading(new Pose2d(54, 38, Math.toRadians(0)))
-                .build();
-
-        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(10, 68, Math.toRadians(270.00)))
-                .splineTo(new Vector2d(6, 37), Math.toRadians(194.93))
-                .lineToLinearHeading(new Pose2d(31.45, 37, Math.toRadians(180.00)))
-                .lineToLinearHeading(new Pose2d(30.75, 37, Math.toRadians(0)))
+        TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(13, 64, Math.toRadians(270.00)))
+                .lineTo(new Vector2d(14, 35))
+                .lineTo(new Vector2d(24.70, 48.03))
                 .lineToLinearHeading(new Pose2d(52, 35, Math.toRadians(0)))
                 .build();
 
-        TrajectorySequence cycle = drive.trajectorySequenceBuilder(new Pose2d(40, 36, Math.toRadians(0)))
+        TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(8, 70, Math.toRadians(270.00)))
+                .splineTo(new Vector2d(4, 40), Math.toRadians(194.93))
+                .lineToLinearHeading(new Pose2d(31.45, 39, Math.toRadians(180.00)))
+                .lineToLinearHeading(new Pose2d(30.75, 39, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(49, 37, Math.toRadians(0)))
+                .build();
+
+        TrajectorySequence cycleleft = drive.trajectorySequenceBuilder(new Pose2d(40, 36, Math.toRadians(0)))
                 .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intake.set(intakespeed);
                     intakeheights.setPosition(intake_heights_up);
                 })
-                .lineToLinearHeading(new Pose2d(-60, 16, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(-57.5, 16, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-62, 18, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-59, 18, Math.toRadians(0.00)))
                 .addTemporalMarker(() -> {
                     intakeheights.setPosition(intake_heights_down);
                     intake.set(intakespeed*0.7);
@@ -125,11 +125,59 @@ public class Blue2plus2 extends LinearOpMode {
                     intake.set(-1);
                     intakeheights.setPosition(intake_heights_up);
                 })
-                .lineToLinearHeading(new Pose2d(30, 12.58, Math.toRadians(-4.00)))
+                .lineToLinearHeading(new Pose2d(30, 13, Math.toRadians(-3.00)))
                 .addDisplacementMarker(() -> {
                     intake.set(0);
                 })
-                .lineToLinearHeading(new Pose2d(52, 34, Math.toRadians(-4.00)))
+                .lineToLinearHeading(new Pose2d(50, 38, Math.toRadians(-3.00)))
+                .build();
+
+        TrajectorySequence cyclemiddle = drive.trajectorySequenceBuilder(new Pose2d(40, 36, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(0.00)))
+                .addDisplacementMarker(() -> {
+                    intake.set(intakespeed);
+                    intakeheights.setPosition(intake_heights_up);
+                })
+                .lineToLinearHeading(new Pose2d(-61, 16, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-58, 16, Math.toRadians(0.00)))
+                .addTemporalMarker(() -> {
+                    intakeheights.setPosition(intake_heights_down);
+                    intake.set(intakespeed*0.7);
+                })
+                .waitSeconds(2)
+                .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
+                    intake.set(-1);
+                    intakeheights.setPosition(intake_heights_up);
+                })
+                .lineToLinearHeading(new Pose2d(30, 7, Math.toRadians(-3.00)))
+                .addDisplacementMarker(() -> {
+                    intake.set(0);
+                })
+                .lineToLinearHeading(new Pose2d(50, 33, Math.toRadians(-3.00)))
+                .build();
+
+        TrajectorySequence cycleright = drive.trajectorySequenceBuilder(new Pose2d(40, 36, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(33.78, 12.58, Math.toRadians(0.00)))
+                .addDisplacementMarker(() -> {
+                    intake.set(intakespeed);
+                    intakeheights.setPosition(intake_heights_up);
+                })
+                .lineToLinearHeading(new Pose2d(-60, 16, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-57, 16, Math.toRadians(0.00)))
+                .addTemporalMarker(() -> {
+                    intakeheights.setPosition(intake_heights_down);
+                    intake.set(intakespeed*0.7);
+                })
+                .waitSeconds(2)
+                .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
+                    intake.set(-1);
+                    intakeheights.setPosition(intake_heights_up);
+                })
+                .lineToLinearHeading(new Pose2d(30, 18, Math.toRadians(-3.00)))
+                .addDisplacementMarker(() -> {
+                    intake.set(0);
+                })
+                .lineToLinearHeading(new Pose2d(51, 38, Math.toRadians(-3.00)))
                 .build();
 
 
@@ -155,7 +203,7 @@ public class Blue2plus2 extends LinearOpMode {
                 }).transition(()->lift.is_down())
                 .state(AutoStates.CYCLE)
                 .onEnter(()-> {
-                    drive.followTrajectorySequenceAsync(cycle);
+                    drive.followTrajectorySequenceAsync(cycleleft);
                     lift.setPower(0);
                 })
                 .transition(()->!drive.isBusy())
@@ -194,7 +242,7 @@ public class Blue2plus2 extends LinearOpMode {
                 }).transition(()->lift.is_down())
                 .state(AutoStates.CYCLE)
                 .onEnter(()-> {
-                    drive.followTrajectorySequenceAsync(cycle);
+                    drive.followTrajectorySequenceAsync(cyclemiddle);
                     lift.setPower(0);
                 })
                 .transition(()->!drive.isBusy())
@@ -234,7 +282,7 @@ public class Blue2plus2 extends LinearOpMode {
                 }).transition(()->lift.is_down())
                 .state(AutoStates.CYCLE)
                 .onEnter(()-> {
-                    drive.followTrajectorySequenceAsync(cycle);
+                    drive.followTrajectorySequenceAsync(cycleright);
                     lift.setPower(0);
                 })
                 .transition(()->!drive.isBusy())
