@@ -92,20 +92,20 @@ public class Blue2plus2 extends LinearOpMode {
         TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(11, 66, Math.toRadians(270.00)))
                 .lineTo(new Vector2d(20, 42))
                 .lineTo(new Vector2d(24, 56))
-                .lineToLinearHeading(new Pose2d(50, 46, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(51, 46, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(13, 64, Math.toRadians(270.00)))
                 .lineTo(new Vector2d(14, 35))
                 .lineTo(new Vector2d(24.70, 48.03))
-                .lineToLinearHeading(new Pose2d(52, 35, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(53, 35, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence rightpath = drive.trajectorySequenceBuilder(new Pose2d(8, 70, Math.toRadians(270.00)))
                 .splineTo(new Vector2d(4, 40), Math.toRadians(194.93))
                 .lineToLinearHeading(new Pose2d(31.45, 39, Math.toRadians(180.00)))
                 .lineToLinearHeading(new Pose2d(30.75, 39, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(49, 37, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(50, 37, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence cycleleft = drive.trajectorySequenceBuilder(new Pose2d(40, 36, Math.toRadians(0)))
@@ -138,8 +138,8 @@ public class Blue2plus2 extends LinearOpMode {
                     intake.set(intakespeed);
                     intakeheights.setPosition(intake_heights_up);
                 })
-                .lineToLinearHeading(new Pose2d(-61, 16, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(-58, 16, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-61, 15, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-58, 15, Math.toRadians(0.00)))
                 .addTemporalMarker(() -> {
                     intakeheights.setPosition(intake_heights_down);
                     intake.set(intakespeed*0.7);

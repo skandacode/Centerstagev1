@@ -150,7 +150,7 @@ public class TeleopPIDS extends LinearOpMode {
             if (gamepad2.dpad_right){hangservo.setPosition(0);}//up
             if (gamepad2.dpad_up){hangservo.setPosition(0.25);}//locks before hang
             if (gamepad2.dpad_left){hangservo.setPosition(0.4);}//drone
-            if (gamepad2.y){
+            if (gamepad2.y && gamepad1.y){
                 droneservo.setPosition(0);//shoot drone
             }else{
                 droneservo.setPosition(0.6);//keep drone

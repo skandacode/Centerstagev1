@@ -95,42 +95,19 @@ public class Red2plus2 extends LinearOpMode {
         TrajectorySequence middlepath = drive.trajectorySequenceBuilder(new Pose2d(10, -60, Math.toRadians(90)))
                 .lineTo(new Vector2d(14, -31))
                 .lineTo(new Vector2d(20.70, -43.5))
-                .lineToLinearHeading(new Pose2d(51, -33, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(51, -33.5, Math.toRadians(0)))
                 .build();
 
         TrajectorySequence leftpath = drive.trajectorySequenceBuilder(new Pose2d(8, -60, Math.toRadians(90)))
                 .splineTo(new Vector2d(4, -31), Math.toRadians(360.0-194.93))
                 .lineToLinearHeading(new Pose2d(31.45, -30, Math.toRadians(180.00)))
                 .lineToLinearHeading(new Pose2d(30.75, -30.10, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(51, -28, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(51, -30, Math.toRadians(0)))
                 .build();
 
 
         TrajectorySequence cycleleft = drive.trajectorySequenceBuilder(new Pose2d(40, -36, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(30, -12, Math.toRadians(0.00)))
-                .addDisplacementMarker(() -> {
-                    intake.set(intakespeed);
-                    intakeheights.setPosition(intake_heights_up);
-                })
-                .lineToLinearHeading(new Pose2d(-61, -11, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(-58, -11, Math.toRadians(0.00)))
-                .addTemporalMarker(() -> {
-                    intakeheights.setPosition(intake_heights_down);
-                    intake.set(intakespeed*0.7);
-                })
-                .waitSeconds(2)
-                .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
-                    intake.set(-1);
-                    intakeheights.setPosition(intake_heights_up);
-                })
-                .lineToLinearHeading(new Pose2d(29, -10, Math.toRadians(0.00)))
-                .addDisplacementMarker(() -> {
-                    intake.set(0);
-                })
-                .lineToLinearHeading(new Pose2d(49, -36, Math.toRadians(0.00)))
-                .build();
-        TrajectorySequence cyclemiddle = drive.trajectorySequenceBuilder(new Pose2d(40, -36, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(30, -12, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(30, -13, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intake.set(intakespeed);
                     intakeheights.setPosition(intake_heights_up);
@@ -152,14 +129,14 @@ public class Red2plus2 extends LinearOpMode {
                 })
                 .lineToLinearHeading(new Pose2d(49, -36, Math.toRadians(0.00)))
                 .build();
-        TrajectorySequence cycleright = drive.trajectorySequenceBuilder(new Pose2d(40, -36, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(30, -18, Math.toRadians(0.00)))
+        TrajectorySequence cyclemiddle = drive.trajectorySequenceBuilder(new Pose2d(40, -36, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(30, -12, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intake.set(intakespeed);
                     intakeheights.setPosition(intake_heights_up);
                 })
-                .lineToLinearHeading(new Pose2d(-61, -18, Math.toRadians(0.00)))
-                .lineToLinearHeading(new Pose2d(-58, -18, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-62, -14, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-59, -14, Math.toRadians(0.00)))
                 .addTemporalMarker(() -> {
                     intakeheights.setPosition(intake_heights_down);
                     intake.set(intakespeed*0.7);
@@ -169,7 +146,30 @@ public class Red2plus2 extends LinearOpMode {
                     intake.set(-1);
                     intakeheights.setPosition(intake_heights_up);
                 })
-                .lineToLinearHeading(new Pose2d(29, -16, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(29, -10, Math.toRadians(0.00)))
+                .addDisplacementMarker(() -> {
+                    intake.set(0);
+                })
+                .lineToLinearHeading(new Pose2d(49, -36, Math.toRadians(0.00)))
+                .build();
+        TrajectorySequence cycleright = drive.trajectorySequenceBuilder(new Pose2d(40, -36, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(30, -18, Math.toRadians(0.00)))
+                .addDisplacementMarker(() -> {
+                    intake.set(intakespeed);
+                    intakeheights.setPosition(intake_heights_up);
+                })
+                .lineToLinearHeading(new Pose2d(-61, -20, Math.toRadians(0.00)))
+                .lineToLinearHeading(new Pose2d(-58, -19, Math.toRadians(0.00)))
+                .addTemporalMarker(() -> {
+                    intakeheights.setPosition(intake_heights_down);
+                    intake.set(intakespeed*0.7);
+                })
+                .waitSeconds(2)
+                .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
+                    intake.set(-1);
+                    intakeheights.setPosition(intake_heights_up);
+                })
+                .lineToLinearHeading(new Pose2d(29, -14, Math.toRadians(0.00)))
                 .addDisplacementMarker(() -> {
                     intake.set(0);
                 })
